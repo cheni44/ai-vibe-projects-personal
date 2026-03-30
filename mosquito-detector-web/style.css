@@ -1,0 +1,216 @@
+/* ── Reset & base ─────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #1a1a1a;
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 12px;
+  /* Prevent horizontal overflow on any viewport */
+  overflow-x: hidden;
+}
+
+/* ── Page container ──────────────────────────────────────────────────────── */
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+h1 {
+  font-size: 1.4rem;
+  text-align: center;
+  padding: 4px 0;
+  letter-spacing: 0.01em;
+}
+
+/* ── Camera preview + overlay ────────────────────────────────────────────── */
+.preview-wrapper {
+  position: relative;
+  width: 100%;
+  /* 4:3 aspect ratio — works well for both portrait and landscape cameras */
+  aspect-ratio: 4 / 3;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Video and overlay canvas fill the wrapper exactly */
+.preview-wrapper video,
+.preview-wrapper canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* video: fill without distortion */
+}
+
+#overlay {
+  /* Canvas sits on top of video; clicks pass through */
+  pointer-events: none;
+}
+
+/* ── Error message ───────────────────────────────────────────────────────── */
+.error-msg {
+  background: #5a1010;
+  border: 1px solid #ff4444;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #ffcccc;
+}
+
+/* ── Control buttons ─────────────────────────────────────────────────────── */
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.controls button {
+  flex: 1;
+  /* Minimum 44 px tap target per accessibility guidelines */
+  min-height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  /* Prevent text selection on double-tap (mobile) */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.controls button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.controls button:active:not(:disabled) {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.controls button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ── Proximity meter ─────────────────────────────────────────────────────── */
+.proximity-section {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+#proximityText {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Track */
+.prox-bar-bg {
+  width: 100%;
+  height: 13px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+/* Fill — colour controlled via --prox-color CSS custom property */
+#proxBar {
+  height: 100%;
+  width: 0%;
+  background: var(--prox-color, #44ff44);
+  border-radius: 7px;
+  transition: width 0.1s ease, background 0.15s ease;
+}
+
+/* ── Sensitivity slider ───────────────────────────────────────────────────── */
+.sensitivity-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sensitivity-section label {
+  font-size: 0.9rem;
+  color: #aaaaaa;
+  text-align: center;
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 44px;  /* large enough tap target */
+  cursor: pointer;
+  accent-color: #44aaff;
+  /* Remove default iOS styling */
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+/* Custom track for cross-browser consistency */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #44aaff;
+  margin-top: -8px;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: #44aaff;
+  cursor: pointer;
+}
+
+/* ── Responsive: narrow viewports ────────────────────────────────────────── */
+@media (max-width: 600px) {
+  body {
+    padding: 8px;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  .controls button {
+    font-size: 0.95rem;
+  }
+}
+
+/* Extra-small phones (≥ 320 px) — guard against any overflow */
+@media (max-width: 360px) {
+  .controls {
+    flex-direction: column;
+  }
+}

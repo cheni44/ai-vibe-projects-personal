@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Vibe Projects</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="header-icon">🤖</span>
+      <div>
+        <h1>AI Vibe Projects</h1>
+        <p class="header-sub">Personal AI-powered side projects</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="project-grid">
+
+      <!-- ── Mosquito Detector Web ── -->
+      <article class="card">
+        <div class="card-header">
+          <span class="card-icon">🦟</span>
+          <div class="card-meta">
+            <h2 class="card-title">Mosquito Detector</h2>
+            <div class="tags">
+              <span class="tag tag-web">Web</span>
+              <span class="tag tag-ai">AI / Vision</span>
+              <span class="tag tag-audio">Audio</span>
+            </div>
+          </div>
+        </div>
+        <p class="card-desc">
+          Real-time mosquito detection in your browser. Point your camera, and
+          a synthesised buzz alert gets louder as mosquitoes get closer.
+          No install required — runs entirely on-device.
+        </p>
+        <ul class="card-features">
+          <li>📷 Live camera preview with bounding-box overlay</li>
+          <li>🔊 Web Audio API proximity buzz (no audio file)</li>
+          <li>🎚️ Adjustable sensitivity slider</li>
+          <li>🔄 Front / rear camera toggle</li>
+        </ul>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="mosquito-detector-web/">▶ Open App</a>
+          <a class="btn btn-secondary" href="https://github.com/search?q=mosquito-detector-web" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </article>
+
+      <!-- ── Mosquito Detector iOS ── -->
+      <article class="card">
+        <div class="card-header">
+          <span class="card-icon">📱</span>
+          <div class="card-meta">
+            <h2 class="card-title">Mosquito Detector iOS</h2>
+            <div class="tags">
+              <span class="tag tag-ios">iOS</span>
+              <span class="tag tag-python">Python</span>
+              <span class="tag tag-ai">AI / Vision</span>
+            </div>
+          </div>
+        </div>
+        <p class="card-desc">
+          The same mosquito detector as a Pythonista 3 Python app on iPhone/iPad.
+          Uses AVFoundation via <code>objc_util</code> for camera access and
+          PIL heuristics for detection.
+        </p>
+        <ul class="card-features">
+          <li>🍎 Runs inside Pythonista 3 (no App Store needed)</li>
+          <li>📐 PIL + NumPy blob-detection pipeline</li>
+          <li>🔊 Proximity-scaled <code>sound.Player</code> alert</li>
+          <li>🧪 Unit-tested detection helpers</li>
+        </ul>
+        <div class="card-actions">
+          <a class="btn btn-secondary" href="https://github.com/search?q=mosquito-detector-ios" target="_blank" rel="noopener">View Docs ↗</a>
+        </div>
+      </article>
+
+      <!-- ── Coming soon placeholder ── -->
+      <article class="card card-placeholder">
+        <div class="card-header">
+          <span class="card-icon">✨</span>
+          <div class="card-meta">
+            <h2 class="card-title">More coming soon</h2>
+            <div class="tags">
+              <span class="tag tag-wip">In Progress</span>
+            </div>
+          </div>
+        </div>
+        <p class="card-desc">
+          New AI side projects will appear here as they are built.
+          Ideas in the pipeline: image classifier, voice assistant, generative art.
+        </p>
+      </article>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Built with ❤️ and AI assistance · <a href="https://github.com" target="_blank" rel="noopener">GitHub</a></p>
+  </footer>
+
+</body>
+</html>
