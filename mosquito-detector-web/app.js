@@ -163,6 +163,7 @@ async function startCamera(facing) {
     hidePermBanner();
     video.srcObject = s;
     await video.play();
+    applyMaxZoom(s);
     resizeOverlay();
     return s;
 
@@ -191,6 +192,7 @@ async function startCameraFallback(facing) {
     const s = await navigator.mediaDevices.getUserMedia({ video: true });
     video.srcObject = s;
     await video.play();
+    applyMaxZoom(s);
     resizeOverlay();
     return s;
   } catch (err) {
@@ -205,6 +207,20 @@ async function startCameraFallback(facing) {
 function stopCamera(s) {
   if (s) s.getTracks().forEach(t => t.stop());
   video.srcObject = null;
+}
+
+/**
+ * Apply the maximum supported zoom level to the first video track of a stream.
+ * Fire-and-forget: errors are swallowed so camera startup is never blocked.
+ * No-ops silently if the browser or device does not support zoom.
+ */
+function applyMaxZoom(stream) {
+  const track = stream.getVideoTracks()[0];
+  if (!track || typeof track.getCapabilities !== 'function') return;
+  const capabilities = track.getCapabilities();
+  if (capabilities.zoom?.max) {
+    track.applyConstraints({ advanced: [{ zoom: capabilities.zoom.max }] }).catch(() => {});
+  }
 }
 
 /**
