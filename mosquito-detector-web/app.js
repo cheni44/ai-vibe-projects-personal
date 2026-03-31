@@ -16,13 +16,15 @@
 // 1. Constants & state
 // ═══════════════════════════════════════════════════════════════════════════
 
-const PROC_W       = 96;           // processing canvas width  (px)
-const PROC_H       = 72;           // processing canvas height (px)
-const FRAME_AREA   = PROC_W * PROC_H;
-const SILENCE_MS   = 1000;         // ms of no detection before audio fades to 0
-const STABLE_MS    = 1000;         // ms a blob must persist before being shown/heard
-const EVICT_MS     = 500;          // ms since last seen before evicting from tracker
-const TRACKER_GRID = 8;            // centroid quantisation grid size (px, processing res)
+const PROC_W          = 128;        // processing canvas width  (px)
+const PROC_H          = 96;         // processing canvas height (px)
+const FRAME_AREA      = PROC_W * PROC_H;
+const SILENCE_MS      = 1000;       // ms of no detection before audio fades to 0
+const STABLE_MS       = 1000;       // ms a blob must persist before being shown/heard
+const EVICT_MS        = 500;        // ms since last seen before evicting from tracker
+const TRACKER_GRID    = 8;          // centroid quantisation grid size (px, processing res)
+const OPTICAL_ZOOM_CAP = 5;         // max optical zoom to apply (prevents digital zoom on Android)
+const DIFF_THRESHOLD  = 15;         // min per-pixel luminance diff to count as motion
 
 // Mutable app state
 let stream            = null;      // MediaStream from getUserMedia
@@ -30,7 +32,7 @@ let rafId             = null;      // requestAnimationFrame handle
 let running           = false;     // whether the camera loop is active
 let facingMode        = 'environment'; // current camera side
 let sensitivity       = 0.5;       // detection sensitivity [0, 1]
-let prevBlobs         = [];        // blobs from the previous frame (motion filter)
+let prevGrayFrame     = null;      // Float32Array of previous frame's grayscale (motion ref)
 let audioAlert        = null;      // { ctx, proximityGain } or null
 let lastDetectionTime = 0;         // timestamp of last stable detection
 let stableTracker     = new Map(); // Map<key, {firstSeenMs, lastSeenMs, blob}>
@@ -219,7 +221,8 @@ function applyMaxZoom(stream) {
   if (!track || typeof track.getCapabilities !== 'function') return;
   const capabilities = track.getCapabilities();
   if (capabilities.zoom?.max) {
-    track.applyConstraints({ advanced: [{ zoom: capabilities.zoom.max }] }).catch(() => {});
+    const zoomLevel = Math.min(capabilities.zoom.max, OPTICAL_ZOOM_CAP);
+    track.applyConstraints({ advanced: [{ zoom: zoomLevel }] }).catch(() => {});
   }
 }
 
@@ -252,17 +255,52 @@ function captureFrame() {
 }
 
 /**
- * Convert RGBA ImageData to a Uint8Array boolean mask (1 = dark foreground).
- * Uses luminance formula: L = 0.299R + 0.587G + 0.114B
+ * Compute Otsu's optimal threshold from a Float32Array of grayscale values [0,255].
+ * Returns a value clamped to [30, 150] to prevent degenerate all-fore/background masks.
  */
-function toGrayscaleMask(imageData, threshold = 80) {
-  const { data } = imageData;
-  const mask = new Uint8Array(PROC_W * PROC_H);
-  for (let i = 0, p = 0; i < data.length; i += 4, p++) {
-    const gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
-    mask[p] = gray < threshold ? 1 : 0;
+function otsuThreshold(grayArray) {
+  const hist = new Float64Array(256);
+  for (let i = 0; i < grayArray.length; i++) hist[grayArray[i] | 0]++;
+  const total = grayArray.length;
+
+  let sumAll = 0;
+  for (let t = 0; t < 256; t++) sumAll += t * hist[t];
+
+  let sumB = 0, wB = 0, best = 0, bestT = 80;
+  for (let t = 0; t < 256; t++) {
+    wB += hist[t];
+    if (wB === 0) continue;
+    const wF = total - wB;
+    if (wF === 0) break;
+    sumB += t * hist[t];
+    const mB = sumB / wB;
+    const mF = (sumAll - sumB) / wF;
+    const variance = wB * wF * (mB - mF) ** 2;
+    if (variance > best) { best = variance; bestT = t; }
   }
-  return mask;
+  return Math.max(30, Math.min(150, bestT));
+}
+
+/**
+ * Convert RGBA ImageData to a grayscale Float32Array and a Uint8Array boolean mask.
+ * Uses luminance formula: L = 0.299R + 0.587G + 0.114B
+ * Threshold is determined per-frame via Otsu's algorithm.
+ * Returns { mask, grayArray }.
+ */
+function toGrayscaleMask(imageData) {
+  const { data } = imageData;
+  const n        = PROC_W * PROC_H;
+  const grayArray = new Float32Array(n);
+
+  for (let i = 0, p = 0; i < data.length; i += 4, p++) {
+    grayArray[p] = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+  }
+
+  const threshold = otsuThreshold(grayArray);
+  const mask = new Uint8Array(n);
+  for (let p = 0; p < n; p++) mask[p] = grayArray[p] < threshold ? 1 : 0;
+
+  return { mask, grayArray };
 }
 
 /**
@@ -329,8 +367,8 @@ function filterBlobs(blobs, sens) {
   // At sens=0.5: areaMin ≈ 6; at sens=1.0: areaMin=1; at sens=0.0: areaMin=18
   const areaMin = Math.max(1, Math.round(12 * (1.5 - sens)));
   const areaMax = Math.round(150 * (0.5 + sens));
-  const AR_MIN  = 0.15;
-  const AR_MAX  = 12.0;
+  const AR_MIN  = 0.2;
+  const AR_MAX  = 7.0;
 
   return blobs.filter(b =>
     b.area >= areaMin &&
@@ -341,30 +379,16 @@ function filterBlobs(blobs, sens) {
 }
 
 /**
- * Inter-frame motion filter.
- * Keeps only blobs whose centroid has moved ≥ threshold px from the nearest
- * previous-frame blob within a 20 px match radius.
- * Blobs with no nearby predecessor (new arrivals) are always accepted.
- * Returns [] on the very first frame (no previous data).
+ * Pixel-level absolute frame difference mask.
+ * Returns a Uint8Array where |currentGray[i] - prevGray[i]| >= DIFF_THRESHOLD is 1, else 0.
  */
-function motionFilter(blobs, prev, threshold = 1.5) {
-  if (!prev || prev.length === 0) return [];   // first frame — seed state
-
-  return blobs.filter(blob => {
-    let bestDist = 20;     // match radius
-    let matched  = false;
-
-    for (const pb of prev) {
-      const d = Math.hypot(blob.cx - pb.cx, blob.cy - pb.cy);
-      if (d < bestDist) {
-        bestDist = d;
-        matched  = true;
-      }
-    }
-
-    if (!matched) return true;          // new blob — no predecessor → accept
-    return bestDist >= threshold;       // must have moved enough
-  });
+function frameDiffMask(currentGray, prevGray) {
+  const n    = currentGray.length;
+  const diff = new Uint8Array(n);
+  for (let i = 0; i < n; i++) {
+    diff[i] = Math.abs(currentGray[i] - prevGray[i]) >= DIFF_THRESHOLD ? 1 : 0;
+  }
+  return diff;
 }
 
 /**
@@ -377,25 +401,36 @@ function computeProximity(blobArea, frameArea) {
 
 /**
  * Full detection pipeline for one frame.
- * Returns { detections: [{bbox, proximity}], prevBlobs }
+ * Uses Otsu adaptive threshold + pixel-level frame differencing for motion.
+ * Returns { detections: [{cx, cy, bbox, proximity}], prevGrayFrame }
  */
-function detect(imageData, sens, prev) {
-  const mask       = toGrayscaleMask(imageData);
-  let blobs        = findBlobs(mask, PROC_W, PROC_H);
-  blobs            = filterBlobs(blobs, sens);
-  const confirmed  = motionFilter(blobs, prev);
+function detect(imageData, sens, prevGrayFrame) {
+  const { mask, grayArray } = toGrayscaleMask(imageData);
+
+  // First frame — seed the reference frame, return no detections
+  if (!prevGrayFrame) {
+    return { detections: [], prevGrayFrame: grayArray };
+  }
+
+  // Combined mask: dark foreground AND moving pixel
+  const diffMask = frameDiffMask(grayArray, prevGrayFrame);
+  const combined = new Uint8Array(mask.length);
+  for (let i = 0; i < mask.length; i++) combined[i] = mask[i] & diffMask[i];
+
+  let blobs = findBlobs(combined, PROC_W, PROC_H);
+  blobs     = filterBlobs(blobs, sens);
 
   // Sort largest (closest) first
-  confirmed.sort((a, b) => b.area - a.area);
+  blobs.sort((a, b) => b.area - a.area);
 
-  const detections = confirmed.map(b => ({
+  const detections = blobs.map(b => ({
     cx:        b.cx,
     cy:        b.cy,
     bbox:      b.bbox,
     proximity: computeProximity(b.area, FRAME_AREA),
   }));
 
-  return { detections, prevBlobs: blobs };  // store all size-filtered blobs as prev
+  return { detections, prevGrayFrame: grayArray };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -520,8 +555,8 @@ function animationLoop() {
   const imageData = captureFrame();
 
   if (imageData) {
-    const result = detect(imageData, sensitivity, prevBlobs);
-    prevBlobs = result.prevBlobs;
+    const result = detect(imageData, sensitivity, prevGrayFrame);
+    prevGrayFrame = result.prevGrayFrame;
 
     // Update stable tracker with this frame's detections
     updateTracker(result.detections);
@@ -609,7 +644,7 @@ startBtn.addEventListener('click', async () => {
     stream = await startCamera(facingMode);
     if (!stream) return;   // startCamera already showed the error
 
-    prevBlobs         = [];
+    prevGrayFrame     = null;
     lastDetectionTime = 0;
     running           = true;
     startBtn.textContent = '⏹ Stop';
@@ -621,7 +656,7 @@ startBtn.addEventListener('click', async () => {
     stopCamera(stream);
     stream  = null;
     running = false;
-    prevBlobs = [];
+    prevGrayFrame = null;
     stableTracker.clear();
     updateAudio(audioAlert, 0);
     updateProximityUI(0);
@@ -640,8 +675,8 @@ flipBtn.addEventListener('click', async () => {
   stopCamera(stream);
   stream = null;
 
-  facingMode = facingMode === 'environment' ? 'user' : 'environment';
-  prevBlobs  = [];
+  facingMode    = facingMode === 'environment' ? 'user' : 'environment';
+  prevGrayFrame = null;
   stableTracker.clear();
   overlayCtx.clearRect(0, 0, overlay.width, overlay.height);
 
@@ -664,7 +699,7 @@ retryBtn.addEventListener('click', async () => {
     if (!audioAlert) {
       try { audioAlert = createAudioAlert(); } catch (e) { console.warn('Audio init failed:', e); }
     }
-    prevBlobs         = [];
+    prevGrayFrame     = null;
     lastDetectionTime = 0;
     running           = true;
     startBtn.textContent = '⏹ Stop';
