@@ -827,3 +827,12 @@ document.getElementById('restartBtn').addEventListener('click', () => {
   initAudio();
   startGame();
 });
+
+// ─── Rotate warning: dismiss button + auto-hide on landscape ─────────────────
+document.getElementById('rotateDismiss').addEventListener('click', () => {
+  document.getElementById('rotateWarning').style.display = 'none';
+});
+window.addEventListener('orientationchange', () => {
+  // Auto-restore CSS-driven display when user rotates to landscape
+  document.getElementById('rotateWarning').style.display = '';
+});
