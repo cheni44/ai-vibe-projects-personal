@@ -3,7 +3,19 @@
 // ─── Canvas ──────────────────────────────────────────────────────────────────
 const canvas = document.getElementById('gameCanvas');
 const ctx    = canvas.getContext('2d');
-function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+function resize() {
+  // On portrait touch devices the canvas is CSS-rotated to landscape;
+  // swap buffer dimensions so the game renders in landscape coordinates.
+  const isMobile = navigator.maxTouchPoints > 0;
+  const portrait = window.innerHeight > window.innerWidth;
+  if (isMobile && portrait) {
+    canvas.width  = window.innerHeight;
+    canvas.height = window.innerWidth;
+  } else {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+}
 window.addEventListener('resize', resize);
 resize();
 
@@ -826,13 +838,4 @@ document.getElementById('startBtn').addEventListener('click', async () => {
 document.getElementById('restartBtn').addEventListener('click', () => {
   initAudio();
   startGame();
-});
-
-// ─── Rotate warning: dismiss button + auto-hide on landscape ─────────────────
-document.getElementById('rotateDismiss').addEventListener('click', () => {
-  document.getElementById('rotateWarning').style.display = 'none';
-});
-window.addEventListener('orientationchange', () => {
-  // Auto-restore CSS-driven display when user rotates to landscape
-  document.getElementById('rotateWarning').style.display = '';
 });

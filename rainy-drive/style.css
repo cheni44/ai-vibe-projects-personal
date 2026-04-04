@@ -1,47 +1,15 @@
-/* ─── Landscape / orientation warning ─────────────────────────── */
-.rotate-warning {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(2, 8, 18, 0.97);
-  color: #e8f4ff;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-  text-align: center;
-  gap: 0;
-}
-/* Only trigger on actual touch/mobile devices (pointer: coarse),
-   not on desktop browsers where the window happens to be tall */
+/* ─── Auto-rotate canvas to landscape on portrait touch devices ── */
 @media (orientation: portrait) and (pointer: coarse) {
-  .rotate-warning { display: flex; }
+  #gameCanvas {
+    position: fixed;
+    left: 0;
+    top: 100vh;
+    width: 100vh;
+    height: 100vw;
+    transform-origin: left top;
+    transform: rotate(-90deg);
+  }
 }
-.rotate-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.rotate-icon {
-  font-size: 3.2rem;
-  animation: spin-hint 2.4s ease-in-out infinite;
-  display: inline-block;
-}
-.rotate-content p        { font-size: 1.3rem; font-weight: 600; margin: 0; }
-.rotate-content .rotate-sub { font-size: 0.88rem; color: #506070; }
-.rotate-dismiss {
-  margin-top: 28px;
-  padding: 10px 28px;
-  font-size: 0.95rem;
-  background: rgba(26, 60, 100, 0.70);
-  color: rgba(180, 220, 255, 0.85);
-  border: 1px solid rgba(80, 150, 230, 0.30);
-  border-radius: 8px;
-  cursor: pointer;
-}
-@keyframes spin-hint {
-  0%, 30%  { transform: rotate(0deg);  }
-  55%, 80% { transform: rotate(90deg); }
-  100%     { transform: rotate(0deg);  }
-}
-
-
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
   background: #000;
