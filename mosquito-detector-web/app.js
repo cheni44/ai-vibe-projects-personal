@@ -382,9 +382,10 @@ function findBlobs(mask, width, height) {
  * sensitivity (0–1) scales the minimum area threshold.
  */
 function filterBlobs(blobs, sens) {
-  // At sens=0.5: areaMin ≈ 6; at sens=1.0: areaMin=1; at sens=0.0: areaMin=18
-  const areaMin = Math.max(1, Math.round(12 * (1.5 - sens)));
-  const areaMax = Math.round(150 * (0.5 + sens));
+  // Larger minimums so only genuine mosquito-sized dark spots pass.
+  // At sens=0.5: areaMin ≈ 30; at sens=1.0: areaMin ≈ 10; at sens=0.0: areaMin ≈ 50
+  const areaMin = Math.max(6, Math.round(40 * (1.5 - sens)));
+  const areaMax = Math.round(400 * (0.5 + sens));
   const AR_MIN  = 0.2;
   const AR_MAX  = 7.0;
 
@@ -676,13 +677,7 @@ function animationLoop() {
 
     const topScore = stableDetections.length > 0 ? stableDetections[0].blob.proximity : 0;
 
-    // ── Synthesised buzz (visual proximity → output audio) ─────────────────
-    if (stableDetections.length > 0) {
-      lastDetectionTime = Date.now();
-      updateAudio(audioAlert, topScore);
-    } else if (Date.now() - lastDetectionTime > SILENCE_MS) {
-      updateAudio(audioAlert, 0);
-    }
+    // ── Synthesised buzz removed (too noisy) ───────────────────────────────
 
     // ── Visuals ────────────────────────────────────────────────────────────
     renderOverlay(stableDetections);
@@ -747,15 +742,6 @@ function updateProximityUI(score) {
 // ── Start / Stop ──────────────────────────────────────────────────────────
 startBtn.addEventListener('click', async () => {
   if (!running) {
-    // Create AudioContext on first user gesture — required by browser policy
-    if (!audioAlert) {
-      try {
-        audioAlert = createAudioAlert();
-      } catch (e) {
-        console.warn('Audio initialisation failed:', e);
-      }
-    }
-
     stream = await startCamera(facingMode);
     if (!stream) return;   // startCamera already showed the error
 
@@ -773,7 +759,6 @@ startBtn.addEventListener('click', async () => {
     stream  = null;
     running = false;
     stopMicListener();
-    updateAudio(audioAlert, 0);
     updateProximityUI(0);
     updateSoundUI(0);
     stableTracker.clear();
@@ -814,9 +799,6 @@ retryBtn.addEventListener('click', async () => {
   hideError();
   stream = await startCamera(facingMode);
   if (stream) {
-    if (!audioAlert) {
-      try { audioAlert = createAudioAlert(); } catch (e) { console.warn('Audio init failed:', e); }
-    }
     await initMicListener();
     lastDetectionTime = 0;
     running           = true;
