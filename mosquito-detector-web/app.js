@@ -24,7 +24,15 @@ const STABLE_MS       = 1000;       // ms a blob must persist before being shown
 const EVICT_MS        = 500;        // ms since last seen before evicting from tracker
 const TRACKER_GRID    = 8;          // centroid quantisation grid size (px, processing res)
 const OPTICAL_ZOOM_CAP = 5;         // max optical zoom to apply (prevents digital zoom on Android)
-const DIFF_THRESHOLD  = 15;         // min per-pixel luminance diff to count as motion
+const DIFF_THRESHOLD  = 15;         // (kept for reference, motion filter removed)
+
+// ── Mic / sound-detection constants ──────────────────────────────────────────
+const MOSQUITO_HZ_LO  = 300;    // lower bound of mosquito wingbeat band (Hz)
+const MOSQUITO_HZ_HI  = 700;    // upper bound
+const MIC_FFT_SIZE    = 2048;   // FFT resolution (44100 Hz → ~21.5 Hz/bin)
+const MIC_CALIB_MS    = 1500;   // background-noise calibration window (ms)
+const MIC_SMOOTH_K    = 0.18;   // EMA coefficient for sound score
+const MIC_SNR_TARGET  = 0.10;   // excess energy above baseline that maps to score 1.0
 
 // Mutable app state
 let stream            = null;      // MediaStream from getUserMedia
@@ -32,10 +40,20 @@ let rafId             = null;      // requestAnimationFrame handle
 let running           = false;     // whether the camera loop is active
 let facingMode        = 'environment'; // current camera side
 let sensitivity       = 0.5;       // detection sensitivity [0, 1]
-let prevGrayFrame     = null;      // Float32Array of previous frame's grayscale (motion ref)
 let audioAlert        = null;      // { ctx, proximityGain } or null
 let lastDetectionTime = 0;         // timestamp of last stable detection
 let stableTracker     = new Map(); // Map<key, {firstSeenMs, lastSeenMs, blob}>
+
+// Mic state
+let micStream         = null;      // MediaStream (audio only)
+let micAnalyser       = null;      // AnalyserNode
+let micFreqData       = null;      // Uint8Array for getByteFrequencyData
+let micBinLo          = 0;         // FFT bin index for MOSQUITO_HZ_LO
+let micBinHi          = 0;         // FFT bin index for MOSQUITO_HZ_HI
+let micBaseline       = -1;        // average band energy during calibration (-1 = not done)
+let micCalibSamples   = [];        // samples accumulated during calibration
+let micCalibStart     = 0;
+let soundScore        = 0;         // current smoothed sound score [0, 1]
 
 // ═══════════════════════════════════════════════════════════════════════════
 // 2. DOM references
@@ -401,26 +419,14 @@ function computeProximity(blobArea, frameArea) {
 
 /**
  * Full detection pipeline for one frame.
- * Uses Otsu adaptive threshold + pixel-level frame differencing for motion.
- * Returns { detections: [{cx, cy, bbox, proximity}], prevGrayFrame }
+ * Detects static dark blobs via Otsu adaptive threshold — no motion required.
+ * Returns { detections: [{cx, cy, bbox, proximity}] }
  */
-function detect(imageData, sens, prevGrayFrame) {
-  const { mask, grayArray } = toGrayscaleMask(imageData);
+function detect(imageData, sens) {
+  const { mask } = toGrayscaleMask(imageData);
 
-  // First frame — seed the reference frame, return no detections
-  if (!prevGrayFrame) {
-    return { detections: [], prevGrayFrame: grayArray };
-  }
-
-  // Combined mask: dark foreground AND moving pixel
-  const diffMask = frameDiffMask(grayArray, prevGrayFrame);
-  const combined = new Uint8Array(mask.length);
-  for (let i = 0; i < mask.length; i++) combined[i] = mask[i] & diffMask[i];
-
-  let blobs = findBlobs(combined, PROC_W, PROC_H);
+  let blobs = findBlobs(mask, PROC_W, PROC_H);
   blobs     = filterBlobs(blobs, sens);
-
-  // Sort largest (closest) first
   blobs.sort((a, b) => b.area - a.area);
 
   const detections = blobs.map(b => ({
@@ -430,7 +436,7 @@ function detect(imageData, sens, prevGrayFrame) {
     proximity: computeProximity(b.area, FRAME_AREA),
   }));
 
-  return { detections, prevGrayFrame: grayArray };
+  return { detections };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -544,7 +550,114 @@ function updateAudio(alert, score) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 6. Animation loop & UI rendering
+// 6b. Microphone sound-detection module
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Request microphone access and set up the FFT analyser.
+ * Calibrates background noise for MIC_CALIB_MS ms before scoring begins.
+ */
+async function initMicListener() {
+  try {
+    micStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+    const actx = new (window.AudioContext || window.webkitAudioContext)();
+    const src  = actx.createMediaStreamSource(micStream);
+    micAnalyser = actx.createAnalyser();
+    micAnalyser.fftSize = MIC_FFT_SIZE;
+    micAnalyser.smoothingTimeConstant = 0.75;
+    src.connect(micAnalyser);
+    micFreqData = new Uint8Array(micAnalyser.frequencyBinCount);
+    // Map Hz to FFT bin indices
+    const binHz = actx.sampleRate / MIC_FFT_SIZE;
+    micBinLo    = Math.max(0, Math.round(MOSQUITO_HZ_LO / binHz));
+    micBinHi    = Math.min(micAnalyser.frequencyBinCount - 1, Math.round(MOSQUITO_HZ_HI / binHz));
+    // Begin calibration
+    micCalibSamples = [];
+    micCalibStart   = Date.now();
+    micBaseline     = -1;
+    soundScore      = 0;
+  } catch (e) {
+    console.warn('Mic init failed (continuing without sound detection):', e);
+    micAnalyser = null;
+  }
+}
+
+/**
+ * Read current mic FFT, return a normalised [0, 1] mosquito-sound score.
+ * Returns 0 while calibrating or if mic is unavailable.
+ */
+function readMicScore() {
+  if (!micAnalyser || !micFreqData) return 0;
+  micAnalyser.getByteFrequencyData(micFreqData);
+
+  // Average energy in the mosquito wingbeat band
+  const count = micBinHi - micBinLo + 1;
+  let energy  = 0;
+  for (let i = micBinLo; i <= micBinHi; i++) energy += micFreqData[i] / 255;
+  energy /= count;
+
+  const now = Date.now();
+  if (micBaseline < 0) {
+    // Still collecting calibration samples
+    micCalibSamples.push(energy);
+    if (now - micCalibStart >= MIC_CALIB_MS && micCalibSamples.length > 0) {
+      const avg = micCalibSamples.reduce((s, v) => s + v, 0) / micCalibSamples.length;
+      micBaseline = avg * 1.25;  // 25 % headroom above ambient
+    }
+    return 0;
+  }
+
+  // Excess energy above baseline, normalised
+  const excess = Math.max(0, energy - micBaseline);
+  const raw    = Math.min(1, excess / MIC_SNR_TARGET);
+  soundScore   = soundScore * (1 - MIC_SMOOTH_K) + raw * MIC_SMOOTH_K;
+  return soundScore;
+}
+
+/** Stop mic and reset all mic state. */
+function stopMicListener() {
+  if (micStream) { micStream.getTracks().forEach(t => t.stop()); micStream = null; }
+  micAnalyser     = null;
+  micFreqData     = null;
+  micBaseline     = -1;
+  micCalibSamples = [];
+  soundScore      = 0;
+}
+
+/**
+ * Update sound indicator text + bar from a [0, 1] score.
+ * Shows calibration status, distance label, and colour-coded bar.
+ */
+function updateSoundUI(score) {
+  const soundText = document.getElementById('soundText');
+  const soundBar  = document.getElementById('soundBar');
+  if (!soundText || !soundBar) return;
+
+  const pct = Math.round(score * 100);
+  soundBar.style.width = `${pct}%`;
+
+  const color = score < 0.4 ? '#44dd77'
+              : score < 0.7 ? '#ffcc00'
+              :               '#ff4444';
+  document.documentElement.style.setProperty('--sound-color', color);
+
+  if (!micAnalyser) {
+    soundText.textContent = '🎙 聲音偵測：未啟用';
+  } else if (micBaseline < 0) {
+    soundText.textContent = '🎙 聲音偵測：環境校準中…';
+  } else if (score < 0.08) {
+    soundText.textContent = '🔇 聲音偵測：靜音';
+  } else if (score < 0.4) {
+    soundText.textContent = '🔉 聲音偵測：偵測到蚊子 — 遠';
+  } else if (score < 0.7) {
+    soundText.textContent = '🔊 聲音偵測：偵測到蚊子 — 中距離';
+  } else {
+    soundText.textContent = '🔊 聲音偵測：蚊子很近！';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 7. Animation loop & UI rendering
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
@@ -555,8 +668,7 @@ function animationLoop() {
   const imageData = captureFrame();
 
   if (imageData) {
-    const result = detect(imageData, sensitivity, prevGrayFrame);
-    prevGrayFrame = result.prevGrayFrame;
+    const result = detect(imageData, sensitivity);
 
     // Update stable tracker with this frame's detections
     updateTracker(result.detections);
@@ -564,7 +676,7 @@ function animationLoop() {
 
     const topScore = stableDetections.length > 0 ? stableDetections[0].blob.proximity : 0;
 
-    // ── Audio ──────────────────────────────────────────────────────────────
+    // ── Synthesised buzz (visual proximity → output audio) ─────────────────
     if (stableDetections.length > 0) {
       lastDetectionTime = Date.now();
       updateAudio(audioAlert, topScore);
@@ -576,6 +688,9 @@ function animationLoop() {
     renderOverlay(stableDetections);
     updateProximityUI(stableDetections.length > 0 ? topScore : 0);
   }
+
+  // ── Mic sound detection (independent of visual) ────────────────────────
+  updateSoundUI(readMicScore());
 
   rafId = requestAnimationFrame(animationLoop);
 }
@@ -612,15 +727,15 @@ function renderOverlay(stableEntries) {
 function updateProximityUI(score) {
   if (score > 0) {
     const pct   = Math.round(score * 100);
-    const color = score < 0.4 ? '#44ff44'
-                : score < 0.7 ? '#ffff00'
+    const color = score < 0.4 ? '#44dd77'
+                : score < 0.7 ? '#ffcc00'
                 :               '#ff4444';
 
-    proximityText.textContent = `Proximity: ${pct} %`;
+    proximityText.textContent = `👁 視覺距離：${pct} %`;
     document.documentElement.style.setProperty('--prox-color', color);
     proxBar.style.width = `${pct}%`;
   } else {
-    proximityText.textContent = 'Proximity: —';
+    proximityText.textContent = '👁 視覺距離：未偵測';
     proxBar.style.width = '0%';
   }
 }
@@ -644,7 +759,8 @@ startBtn.addEventListener('click', async () => {
     stream = await startCamera(facingMode);
     if (!stream) return;   // startCamera already showed the error
 
-    prevGrayFrame     = null;
+    await initMicListener();
+
     lastDetectionTime = 0;
     running           = true;
     startBtn.textContent = '⏹ Stop';
@@ -656,10 +772,11 @@ startBtn.addEventListener('click', async () => {
     stopCamera(stream);
     stream  = null;
     running = false;
-    prevGrayFrame = null;
-    stableTracker.clear();
+    stopMicListener();
     updateAudio(audioAlert, 0);
     updateProximityUI(0);
+    updateSoundUI(0);
+    stableTracker.clear();
     overlayCtx.clearRect(0, 0, overlay.width, overlay.height);
     startBtn.textContent = '▶ Start';
     flipBtn.disabled     = true;
@@ -674,14 +791,15 @@ flipBtn.addEventListener('click', async () => {
   rafId = null;
   stopCamera(stream);
   stream = null;
+  stopMicListener();
 
   facingMode    = facingMode === 'environment' ? 'user' : 'environment';
-  prevGrayFrame = null;
   stableTracker.clear();
   overlayCtx.clearRect(0, 0, overlay.width, overlay.height);
 
   stream = await startCamera(facingMode);
   if (stream) {
+    await initMicListener();
     rafId = requestAnimationFrame(animationLoop);
   } else {
     // Camera switch failed — reset to stopped state
@@ -699,7 +817,7 @@ retryBtn.addEventListener('click', async () => {
     if (!audioAlert) {
       try { audioAlert = createAudioAlert(); } catch (e) { console.warn('Audio init failed:', e); }
     }
-    prevGrayFrame     = null;
+    await initMicListener();
     lastDetectionTime = 0;
     running           = true;
     startBtn.textContent = '⏹ Stop';
