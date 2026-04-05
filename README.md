@@ -12,8 +12,9 @@ A collection of personal AI-powered side projects. Each project lives in its own
 
 | Project | Platform | Description |
 |---------|----------|-------------|
-| [🦟 Mosquito Detector Web](./mosquito-detector-web/) | Web (GitHub Pages) | Real-time in-browser mosquito detection via camera + proximity buzz audio |
+| [🦟 Mosquito Detector Web](./mosquito-detector-web/) | Web (GitHub Pages) | Real-time in-browser mosquito detection via camera (dark blob) + mic FFT sound detection |
 | [🦟 Mosquito Detector iOS](./mosquito-detector-ios/) | Pythonista 3 (iOS) | Same detector as a Pythonista 3 Python app using AVFoundation + Web Audio |
+| [🌧 暴雨開車](./rainy-drive/) | Web (GitHub Pages) | First-person highway driving game — dodge traffic in a torrential downpour. Lane-change controls, 5 scenic zones, daytime POV with branded NPC vehicles |
 
 ## Repository Structure
 
@@ -24,6 +25,7 @@ A collection of personal AI-powered side projects. Each project lives in its own
 │   └── style.css
 ├── mosquito-detector-web/     # Web app (HTML + JS, deployed to GitHub Pages)
 ├── mosquito-detector-ios/     # Pythonista 3 iOS app (Python)
+├── rainy-drive/               # 暴雨開車 driving game (HTML5 Canvas + Web Audio)
 ├── openspec/                  # OpenSpec change management docs
 │   └── changes/
 └── .github/
