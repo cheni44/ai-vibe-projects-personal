@@ -10,358 +10,1212 @@ import Toybox.Timer;
 import Toybox.Activity;
 [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 6; @symbol_importdef<0> = [Toybox,6,7,13]; @symbol_importdef<1> = [ActivityRecording,6,14,31]; ]
 import Toybox.ActivityRecording;
-[ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 9; @symbol_classdef = [SpatioInsightApp,9,6,22]; @symbol_extends<0> = [Application,9,31,42]; @symbol_extends<1> = [AppBase,9,43,50]; ]
+[ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 7; @symbol_importdef<0> = [Toybox,7,7,13]; @symbol_importdef<1> = [System,7,14,20]; ]
+import Toybox.System;
+[ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 10; @symbol_classdef = [SpatioInsightApp,10,6,22]; @symbol_extends<0> = [Application,10,31,42]; @symbol_extends<1> = [AppBase,10,43,50]; ]
 class SpatioInsightApp extends Application.AppBase {
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 9; ]
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 10; ]
     <init> {
     }
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 9; ]
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 10; ]
     static
     <init> {
     }
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 11; @position = 16; @symbol_vardef = [_sensorManager,11,16,30]; @symbol_type<0> = [SensorManager,11,34,47]; ]
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 12; @position = 16; @symbol_vardef = [_sensorManager,12,16,30]; @symbol_type<0> = [SensorManager,12,34,47]; ]
     private
     var _sensorManager as SensorManager or Null;
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 12; @position = 16; @symbol_vardef = [_fitWriter,12,16,26]; @symbol_type<0> = [FitWriter,12,34,43]; ]
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 13; @position = 16; @symbol_vardef = [_fitWriter,13,16,26]; @symbol_type<0> = [FitWriter,13,34,43]; ]
     private
     var _fitWriter as FitWriter or Null;
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 13; @position = 16; @symbol_vardef = [_view,13,16,21]; @symbol_type<0> = [AppView,13,34,41]; ]
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 14; @position = 16; @symbol_vardef = [_view,14,16,21]; @symbol_type<0> = [AppView,14,34,41]; ]
     private
     var _view as AppView or Null;
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 14; @position = 16; @symbol_vardef = [_timer,14,16,22]; @symbol_type<0> = [Timer,14,34,39]; @symbol_type<1> = [Timer,14,40,45]; ]
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 15; @position = 16; @symbol_vardef = [_delegate,15,16,25]; @symbol_type<0> = [AppDelegate,15,34,45]; ]
+    private
+    var _delegate as AppDelegate or Null;
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 16; @position = 16; @symbol_vardef = [_timer,16,16,22]; @symbol_type<0> = [Timer,16,34,39]; @symbol_type<1> = [Timer,16,40,45]; ]
     private
     var _timer as Timer.Timer or Null;
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 15; @position = 16; @symbol_vardef = [_session,15,16,24]; @symbol_type<0> = [ActivityRecording,15,34,51]; @symbol_type<1> = [Session,15,52,59]; ]
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 17; @position = 16; @symbol_vardef = [_session,17,16,24]; @symbol_type<0> = [ActivityRecording,17,34,51]; @symbol_type<1> = [Session,17,52,59]; ]
     private
     var _session as ActivityRecording.Session or Null;
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 16; @position = 16; @symbol_vardef = [_userProfile,16,16,28]; @symbol_type<0> = [UserProfile,16,34,45]; ]
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 18; @position = 16; @symbol_vardef = [_userProfile,18,16,28]; @symbol_type<0> = [UserProfile,18,34,45]; ]
     private
     var _userProfile as UserProfile or Null;
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 18; @symbol_functiondef = [initialize,18,13,23]; ]
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 19; @position = 16; @symbol_vardef = [_isRecording,19,16,28]; @symbol_type<0> = [Boolean,19,34,41]; ]
+    private
+    var _isRecording as Boolean;
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 20; @position = 16; @symbol_vardef = [_hasStarted,20,16,27]; @symbol_type<0> = [Boolean,20,34,41]; ]
+    private
+    var _hasStarted as Boolean;
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 21; @position = 16; @symbol_vardef = [_isFinalized,21,16,28]; @symbol_type<0> = [Boolean,21,34,41]; ]
+    private
+    var _isFinalized as Boolean;
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 22; @position = 16; @symbol_vardef = [_elapsedMs,22,16,26]; @symbol_type<0> = [Number,22,34,40]; ]
+    private
+    var _elapsedMs as Number;
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 23; @position = 16; @symbol_vardef = [_lastTickMs,23,16,27]; @symbol_type<0> = [Number,23,34,40]; ]
+    private
+    var _lastTickMs as Number;
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 24; @position = 16; @symbol_vardef = [_statusText,24,16,27]; @symbol_type<0> = [String,24,34,40]; ]
+    private
+    var _statusText as String;
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 25; @position = 16; @symbol_vardef = [_showPauseMenu,25,16,30]; @symbol_type<0> = [Boolean,25,34,41]; ]
+    private
+    var _showPauseMenu as Boolean;
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 26; @position = 16; @symbol_vardef = [_pauseMenuIndex,26,16,31]; @symbol_type<0> = [Number,26,35,41]; ]
+    private
+    var _pauseMenuIndex as Number;
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 28; @symbol_functiondef = [initialize,28,13,23]; ]
     function initialize() as Void {
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_18_26_20_4_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 19 8 ]
-        symbol [ AppBase %tmp.2 19 8 15 ];
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_28_26_38_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 29 8 ]
+        symbol [ AppBase %tmp.2 29 8 15 ];
         %tmp.2 = getv ? :AppBase;
-        symbol [ initialize %tmp.3 19 16 26 ];
+        symbol [ initialize %tmp.3 29 16 26 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_18_26_20_4_stop:
-    }
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 23; @symbol_functiondef = [onStart,23,13,20]; @symbol_param<0> = [state,23,21,26]; @symbol_param<0>_type<0> = [Dictionary,23,30,40]; ]
-    function onStart(state as Dictionary or Null) as Void {
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_23_51_54_4_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 24 8 ]
-        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_23_51_54_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_23_51_54_4_stop" ]
-        %activityType.1 = local;
-        symbol [ activityType %activityType.1 24 12 24 ];
-        symbol [ AppSettings %tmp.2 24 27 38 ];
-        %tmp.2 = getv ? :AppSettings;
-        symbol [ getActivityType %tmp.3 24 39 54 ];
-        %tmp.3 = getv function %tmp.2 :getActivityType;
-        %tmp.4 = invoke %tmp.2 %tmp.3();
-        lputv %activityType.1 %tmp.4;
-        symbol [ activityType %activityType.1 24 12 24 ];
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 25 8 ]
-        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_23_51_54_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_23_51_54_4_stop" ]
-        %sampleRate.2 = local;
-        symbol [ sampleRate %sampleRate.2 25 12 22 ];
-        symbol [ AppSettings %tmp.6 25 27 38 ];
-        %tmp.6 = getv ? :AppSettings;
-        symbol [ getSampleRate %tmp.7 25 39 52 ];
-        %tmp.7 = getv function %tmp.6 :getSampleRate;
-        %tmp.8 = invoke %tmp.6 %tmp.7();
-        lputv %sampleRate.2 %tmp.8;
-        symbol [ sampleRate %sampleRate.2 25 12 22 ];
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 26 8 ]
-        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_23_51_54_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_23_51_54_4_stop" ]
-        %poolLength.3 = local;
-        symbol [ poolLength %poolLength.3 26 12 22 ];
-        symbol [ AppSettings %tmp.10 26 27 38 ];
-        %tmp.10 = getv ? :AppSettings;
-        symbol [ getPoolLength %tmp.11 26 39 52 ];
-        %tmp.11 = getv function %tmp.10 :getPoolLength;
-        %tmp.12 = invoke %tmp.10 %tmp.11();
-        lputv %poolLength.3 %tmp.12;
-        symbol [ poolLength %poolLength.3 26 12 22 ];
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 27 8 ]
-        symbol [ UserProfile %tmp.16 27 27 38 ];
-        %tmp.16 = getv ? :UserProfile;
-        %tmp.13 = newc %tmp.16 ();
-        symbol [ _userProfile ? 27 8 20 ];
-        putv self :_userProfile %tmp.13;
 [ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 30 8 ]
-        symbol [ SensorManager %tmp.20 30 29 42 ];
-        %tmp.20 = getv ? :SensorManager;
-        %tmp.21 = lgetv %sampleRate.2;
-        symbol [ sampleRate %tmp.21 30 43 53 ];
-        %tmp.17 = newc %tmp.20 (%tmp.21);
-        symbol [ _sensorManager ? 30 8 22 ];
-        putv self :_sensorManager %tmp.17;
+        %tmp.4 = false;
+        symbol [ _isRecording ? 30 8 20 ];
+        putv self :_isRecording %tmp.4;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 31 8 ]
+        %tmp.5 = false;
+        symbol [ _hasStarted ? 31 8 19 ];
+        putv self :_hasStarted %tmp.5;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 32 8 ]
+        %tmp.6 = false;
+        symbol [ _isFinalized ? 32 8 20 ];
+        putv self :_isFinalized %tmp.6;
 [ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 33 8 ]
-        symbol [ ActivityRecording %tmp.22 33 19 36 ];
-        %tmp.22 = getm $.Toybox.ActivityRecording;
-        symbol [ createSession %tmp.23 33 37 50 ];
-        %tmp.23 = getv function %tmp.22 :createSession;
-        %tmp.24 = newd 3;
-        %tmp.26 = const :name;
-        symbol [ name %tmp.26 34 13 17 const ];
-        %tmp.27 = "SpatioInsight";
-        %tmp.28 = dup %tmp.24;
-        %tmp.29 = aputv %tmp.28 %tmp.26 %tmp.27;
-        %tmp.31 = const :sport;
-        symbol [ sport %tmp.31 35 13 18 const ];
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_35_24_37_44_begin:
-        %tmp.32 = lgetv %activityType.1;
-        symbol [ activityType %tmp.32 35 24 36 ];
-        symbol [ AppSettings %tmp.34 35 40 51 ];
-        %tmp.34 = getv ? :AppSettings;
-        symbol [ ACTIVITY_SWIMMING %tmp.35 35 52 69 ];
-        %tmp.35 = getv %tmp.34 :ACTIVITY_SWIMMING;
-        %tmp.36 = eq %tmp.32 %tmp.35;
-        bf %tmp.36 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_35_24_37_44_else_false;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_35_24_37_44_true:
-        symbol [ ActivityRecording %tmp.37 36 26 43 ];
-        %tmp.37 = getm $.Toybox.ActivityRecording;
-        symbol [ SPORT_SWIMMING %tmp.38 36 44 58 ];
-        %tmp.38 = getv %tmp.37 :SPORT_SWIMMING;
-        push %tmp.38;
-        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_35_24_37_44_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_35_24_37_44_else_false:
-        symbol [ ActivityRecording %tmp.39 37 26 43 ];
-        %tmp.39 = getm $.Toybox.ActivityRecording;
-        symbol [ SPORT_RUNNING %tmp.40 37 44 57 ];
-        %tmp.40 = getv %tmp.39 :SPORT_RUNNING;
-        push %tmp.40;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_35_24_37_44_end:
-        %tmp.41 = phi [%tmp.36 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_35_24_37_44_begin] [%tmp.38 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_35_24_37_44_true] [%tmp.40 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_35_24_37_44_else_false] [%tmp.41 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_35_24_37_44_end];
-        %tmp.42 = dup %tmp.29;
-        %tmp.43 = aputv %tmp.42 %tmp.31 %tmp.41;
-        %tmp.45 = const :subSport;
-        symbol [ subSport %tmp.45 38 13 21 const ];
-        symbol [ ActivityRecording %tmp.46 38 25 42 ];
-        %tmp.46 = getm $.Toybox.ActivityRecording;
-        symbol [ SUB_SPORT_GENERIC %tmp.47 38 43 60 ];
-        %tmp.47 = getv %tmp.46 :SUB_SPORT_GENERIC;
-        %tmp.48 = dup %tmp.43;
-        %tmp.49 = aputv %tmp.48 %tmp.45 %tmp.47;
-        %tmp.50 = invoke %tmp.22 %tmp.23(%tmp.49);
-        symbol [ _session ? 33 8 16 ];
-        putv self :_session %tmp.50;
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 40 8 ]
-        symbol [ _session %tmp.52 40 8 16 ];
-        %tmp.52 = getv ? :_session;
-        symbol [ start %tmp.53 40 17 22 ];
-        %tmp.53 = getv function %tmp.52 :start;
-        invoke %tmp.52 %tmp.53();
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 43 8 ]
-        symbol [ FitWriter %tmp.57 43 25 34 ];
-        %tmp.57 = getv ? :FitWriter;
-        symbol [ _session %tmp.59 43 35 43 ];
-        %tmp.59 = getv ? :_session;
-        symbol [ _sensorManager %tmp.61 43 45 59 ];
-        %tmp.61 = getv ? :_sensorManager;
-        symbol [ gyroAvailable %tmp.62 43 60 73 ];
-        %tmp.62 = getv %tmp.61 :gyroAvailable;
-        %tmp.54 = newc %tmp.57 (%tmp.59, %tmp.62);
-        symbol [ _fitWriter ? 43 8 18 ];
-        putv self :_fitWriter %tmp.54;
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 46 8 ]
-        symbol [ AppView %tmp.66 46 20 27 ];
-        %tmp.66 = getv ? :AppView;
-        symbol [ _sensorManager %tmp.68 46 28 42 ];
-        %tmp.68 = getv ? :_sensorManager;
-        symbol [ _userProfile %tmp.70 46 44 56 ];
-        %tmp.70 = getv ? :_userProfile;
-        %tmp.71 = lgetv %activityType.1;
-        symbol [ activityType %tmp.71 46 58 70 ];
-        %tmp.72 = lgetv %poolLength.3;
-        symbol [ poolLength %tmp.72 46 72 82 ];
-        %tmp.63 = newc %tmp.66 (%tmp.68, %tmp.70, %tmp.71, %tmp.72);
-        symbol [ _view ? 46 8 13 ];
-        putv self :_view %tmp.63;
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 47 8 ]
-        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_23_51_54_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_23_51_54_4_stop" ]
-        %delegate.4 = local;
-        symbol [ delegate %delegate.4 47 12 20 ];
-        symbol [ AppDelegate %tmp.76 47 27 38 ];
-        %tmp.76 = getv ? :AppDelegate;
-        symbol [ _view %tmp.78 47 39 44 ];
-        %tmp.78 = getv ? :_view;
-        %tmp.73 = newc %tmp.76 (%tmp.78);
-        lputv %delegate.4 %tmp.73;
-        symbol [ delegate %delegate.4 47 12 20 ];
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 50 8 ]
-        symbol [ Timer %tmp.81 50 21 26 ];
-        %tmp.81 = getm $.Toybox.Timer;
-        symbol [ Timer %tmp.82 50 27 32 ];
-        %tmp.82 = getv function ? %tmp.81 :Timer;
-        %tmp.79 = newc %tmp.82 ();
-        symbol [ _timer ? 50 8 14 ];
-        putv self :_timer %tmp.79;
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 51 8 ]
-        symbol [ _timer %tmp.84 51 8 14 ];
-        %tmp.84 = getv ? :_timer;
-        symbol [ start %tmp.85 51 15 20 ];
-        %tmp.85 = getv function %tmp.84 :start;
-        %tmp.86 = self;
-        symbol [ method %tmp.87 51 21 27 ];
-        %tmp.87 = getv function %tmp.86 :method;
-        %tmp.89 = const :onTimer;
-        symbol [ onTimer %tmp.89 51 29 36 const ];
-        %tmp.90 = invoke %tmp.86 %tmp.87(%tmp.89);
-        %tmp.91 = 1000;
-        %tmp.92 = true;
-        invoke %tmp.84 %tmp.85(%tmp.90, %tmp.91, %tmp.92);
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 53 8 ]
-        symbol [ WatchUi %tmp.93 53 8 15 ];
-        %tmp.93 = getm $.Toybox.WatchUi;
-        symbol [ pushView %tmp.94 53 16 24 ];
-        %tmp.94 = getv function %tmp.93 :pushView;
-        symbol [ _view %tmp.96 53 25 30 ];
-        %tmp.96 = getv ? :_view;
-        %tmp.97 = lgetv %delegate.4;
-        symbol [ delegate %tmp.97 53 32 40 ];
-        symbol [ WatchUi %tmp.98 53 42 49 ];
-        %tmp.98 = getm $.Toybox.WatchUi;
-        symbol [ SLIDE_IMMEDIATE %tmp.99 53 50 65 ];
-        %tmp.99 = getv %tmp.98 :SLIDE_IMMEDIATE;
-        invoke %tmp.93 %tmp.94(%tmp.96, %tmp.97, %tmp.99);
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_23_51_54_4_stop:
+        %tmp.7 = 0;
+        symbol [ _elapsedMs ? 33 8 18 ];
+        putv self :_elapsedMs %tmp.7;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 34 8 ]
+        %tmp.8 = 0;
+        symbol [ _lastTickMs ? 34 8 19 ];
+        putv self :_lastTickMs %tmp.8;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 35 8 ]
+        %tmp.9 = "READY";
+        symbol [ _statusText ? 35 8 19 ];
+        putv self :_statusText %tmp.9;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 36 8 ]
+        %tmp.10 = false;
+        symbol [ _showPauseMenu ? 36 8 22 ];
+        putv self :_showPauseMenu %tmp.10;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 37 8 ]
+        %tmp.11 = 0;
+        symbol [ _pauseMenuIndex ? 37 8 23 ];
+        putv self :_pauseMenuIndex %tmp.11;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_28_26_38_4_stop:
     }
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 57; @symbol_functiondef = [onStop,57,13,19]; @symbol_param<0> = [state,57,20,25]; @symbol_param<0>_type<0> = [Dictionary,57,29,39]; ]
-    function onStop(state as Dictionary or Null) as Void {
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_57_50_79_4_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 59 8 ]
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_59_8_62_8_if_stmt:
-        symbol [ _timer %tmp.2 59 12 18 ];
-        %tmp.2 = getv ? :_timer;
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 41; @symbol_functiondef = [onStart,41,13,20]; @symbol_param<0> = [state,41,21,26]; @symbol_param<0>_type<0> = [Dictionary,41,30,40]; ]
+    function onStart(state as Dictionary or Null) as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_41_51_51_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 42 8 ]
+        %tmp.1 = self;
+        symbol [ _initializeRuntime %tmp.2 42 8 26 ];
+        %tmp.2 = getv function %tmp.1 :_initializeRuntime;
+        invoke %tmp.1 %tmp.2();
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 45 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_45_8_48_8_if_stmt:
+        symbol [ _timer %tmp.4 45 12 18 ];
+        %tmp.4 = getv ? :_timer;
+        %tmp.5 = null;
+        %tmp.6 = eq %tmp.4 %tmp.5;
+        bf %tmp.6 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_45_8_48_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_45_8_48_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_45_28_48_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 46 12 ]
+        symbol [ Timer %tmp.9 46 25 30 ];
+        %tmp.9 = getm $.Toybox.Timer;
+        symbol [ Timer %tmp.10 46 31 36 ];
+        %tmp.10 = getv function ? %tmp.9 :Timer;
+        %tmp.7 = newc %tmp.10 ();
+        symbol [ _timer ? 46 12 18 ];
+        putv self :_timer %tmp.7;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 47 12 ]
+        symbol [ _timer %tmp.12 47 12 18 ];
+        %tmp.12 = getv ? :_timer;
+        symbol [ start %tmp.13 47 19 24 ];
+        %tmp.13 = getv function %tmp.12 :start;
+        %tmp.14 = self;
+        symbol [ method %tmp.15 47 25 31 ];
+        %tmp.15 = getv function %tmp.14 :method;
+        %tmp.17 = const :onTimer;
+        symbol [ onTimer %tmp.17 47 33 40 const ];
+        %tmp.18 = invoke %tmp.14 %tmp.15(%tmp.17);
+        %tmp.19 = 1000;
+        %tmp.20 = true;
+        invoke %tmp.12 %tmp.13(%tmp.18, %tmp.19, %tmp.20);
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_45_28_48_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_45_8_48_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_45_8_48_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 50 8 ]
+        %tmp.21 = self;
+        symbol [ _syncViewState %tmp.22 50 8 22 ];
+        %tmp.22 = getv function %tmp.21 :_syncViewState;
+        invoke %tmp.21 %tmp.22();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_41_51_51_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 53; @symbol_functiondef = [_initializeRuntime,53,21,39]; ]
+    private
+    function _initializeRuntime() as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_53_50_83_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 54 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_8_56_8_if_stmt:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_12_54_42_begin:
+        symbol [ _view %tmp.2 54 12 17 ];
+        %tmp.2 = getv ? :_view;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_59_8_62_8_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_59_8_62_8_if_true:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_59_28_62_8_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 60 12 ]
-        symbol [ _timer %tmp.6 60 12 18 ];
-        %tmp.6 = getv ? :_timer;
-        %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ stop %tmp.8 60 19 23 ];
-        %tmp.8 = getv function %tmp.7 :stop;
-        invoke %tmp.7 %tmp.8();
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 61 12 ]
-        %tmp.9 = null;
-        symbol [ _timer ? 61 12 18 ];
-        putv self :_timer %tmp.9;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_59_28_62_8_stop:
-        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_59_8_62_8_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_59_8_62_8_if_end:
+        bf %tmp.4 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_8_56_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_29_54_42_true:
+        symbol [ _delegate %tmp.6 54 29 38 ];
+        %tmp.6 = getv ? :_delegate;
+        %tmp.7 = null;
+        %tmp.8 = ne %tmp.6 %tmp.7;
+        push %tmp.8;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_29_54_42_end:
+        %tmp.9 = phi [%tmp.4 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_12_54_42_begin] [%tmp.8 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_29_54_42_true] [%tmp.9 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_29_54_42_end];
+        bf %tmp.9 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_8_56_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_8_56_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_48_56_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 55 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_48_56_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_8_56_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_54_8_56_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 58 8 ]
+        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_53_50_83_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_53_50_83_4_stop" ]
+        %activityType.1 = local;
+        symbol [ activityType %activityType.1 58 12 24 ];
+        symbol [ AppSettings %tmp.11 58 27 38 ];
+        %tmp.11 = getv ? :AppSettings;
+        symbol [ getActivityType %tmp.12 58 39 54 ];
+        %tmp.12 = getv function %tmp.11 :getActivityType;
+        %tmp.13 = invoke %tmp.11 %tmp.12();
+        lputv %activityType.1 %tmp.13;
+        symbol [ activityType %activityType.1 58 12 24 ];
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 59 8 ]
+        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_53_50_83_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_53_50_83_4_stop" ]
+        %accelRate.2 = local;
+        symbol [ accelRate %accelRate.2 59 12 21 ];
+        symbol [ AppSettings %tmp.15 59 27 38 ];
+        %tmp.15 = getv ? :AppSettings;
+        symbol [ getAccelSampleRate %tmp.16 59 39 57 ];
+        %tmp.16 = getv function %tmp.15 :getAccelSampleRate;
+        %tmp.17 = invoke %tmp.15 %tmp.16();
+        lputv %accelRate.2 %tmp.17;
+        symbol [ accelRate %accelRate.2 59 12 21 ];
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 60 8 ]
+        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_53_50_83_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_53_50_83_4_stop" ]
+        %gyroRate.3 = local;
+        symbol [ gyroRate %gyroRate.3 60 12 20 ];
+        symbol [ AppSettings %tmp.19 60 27 38 ];
+        %tmp.19 = getv ? :AppSettings;
+        symbol [ getGyroSampleRate %tmp.20 60 39 56 ];
+        %tmp.20 = getv function %tmp.19 :getGyroSampleRate;
+        %tmp.21 = invoke %tmp.19 %tmp.20();
+        lputv %gyroRate.3 %tmp.21;
+        symbol [ gyroRate %gyroRate.3 60 12 20 ];
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 61 8 ]
+        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_53_50_83_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_53_50_83_4_stop" ]
+        %poolLength.4 = local;
+        symbol [ poolLength %poolLength.4 61 12 22 ];
+        symbol [ AppSettings %tmp.23 61 27 38 ];
+        %tmp.23 = getv ? :AppSettings;
+        symbol [ getPoolLength %tmp.24 61 39 52 ];
+        %tmp.24 = getv function %tmp.23 :getPoolLength;
+        %tmp.25 = invoke %tmp.23 %tmp.24();
+        lputv %poolLength.4 %tmp.25;
+        symbol [ poolLength %poolLength.4 61 12 22 ];
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 62 8 ]
+        symbol [ UserProfile %tmp.29 62 27 38 ];
+        %tmp.29 = getv ? :UserProfile;
+        %tmp.26 = newc %tmp.29 ();
+        symbol [ _userProfile ? 62 8 20 ];
+        putv self :_userProfile %tmp.26;
 [ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 65 8 ]
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_65_8_67_8_if_stmt:
-        symbol [ _sensorManager %tmp.11 65 12 26 ];
-        %tmp.11 = getv ? :_sensorManager;
-        %tmp.12 = null;
-        %tmp.13 = ne %tmp.11 %tmp.12;
-        bf %tmp.13 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_65_8_67_8_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_65_8_67_8_if_true:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_65_36_67_8_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 66 12 ]
-        symbol [ _sensorManager %tmp.15 66 12 26 ];
-        %tmp.15 = getv ? :_sensorManager;
-        %tmp.16 = as %tmp.15 { (!Null) };
-        symbol [ stop %tmp.17 66 27 31 ];
-        %tmp.17 = getv function %tmp.16 :stop;
-        invoke %tmp.16 %tmp.17();
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_65_36_67_8_stop:
-        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_65_8_67_8_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_65_8_67_8_if_end:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 70 8 ]
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_8_72_8_if_stmt:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_12_70_52_begin:
-        symbol [ _fitWriter %tmp.19 70 12 22 ];
-        %tmp.19 = getv ? :_fitWriter;
+        symbol [ SensorManager %tmp.33 65 29 42 ];
+        %tmp.33 = getv ? :SensorManager;
+        %tmp.34 = lgetv %accelRate.2;
+        symbol [ accelRate %tmp.34 65 43 52 ];
+        %tmp.35 = lgetv %gyroRate.3;
+        symbol [ gyroRate %tmp.35 65 54 62 ];
+        %tmp.30 = newc %tmp.33 (%tmp.34, %tmp.35);
+        symbol [ _sensorManager ? 65 8 22 ];
+        putv self :_sensorManager %tmp.30;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 68 8 ]
+        symbol [ ActivityRecording %tmp.36 68 19 36 ];
+        %tmp.36 = getm $.Toybox.ActivityRecording;
+        symbol [ createSession %tmp.37 68 37 50 ];
+        %tmp.37 = getv function %tmp.36 :createSession;
+        %tmp.38 = newd 3;
+        %tmp.40 = const :name;
+        symbol [ name %tmp.40 69 13 17 const ];
+        %tmp.41 = "SpatioInsight";
+        %tmp.42 = dup %tmp.38;
+        %tmp.43 = aputv %tmp.42 %tmp.40 %tmp.41;
+        %tmp.45 = const :sport;
+        symbol [ sport %tmp.45 70 13 18 const ];
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_24_72_44_begin:
+        %tmp.46 = lgetv %activityType.1;
+        symbol [ activityType %tmp.46 70 24 36 ];
+        symbol [ AppSettings %tmp.48 70 40 51 ];
+        %tmp.48 = getv ? :AppSettings;
+        symbol [ ACTIVITY_SWIMMING %tmp.49 70 52 69 ];
+        %tmp.49 = getv %tmp.48 :ACTIVITY_SWIMMING;
+        %tmp.50 = eq %tmp.46 %tmp.49;
+        bf %tmp.50 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_24_72_44_else_false;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_24_72_44_true:
+        symbol [ ActivityRecording %tmp.51 71 26 43 ];
+        %tmp.51 = getm $.Toybox.ActivityRecording;
+        symbol [ SPORT_SWIMMING %tmp.52 71 44 58 ];
+        %tmp.52 = getv %tmp.51 :SPORT_SWIMMING;
+        push %tmp.52;
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_24_72_44_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_24_72_44_else_false:
+        symbol [ ActivityRecording %tmp.53 72 26 43 ];
+        %tmp.53 = getm $.Toybox.ActivityRecording;
+        symbol [ SPORT_RUNNING %tmp.54 72 44 57 ];
+        %tmp.54 = getv %tmp.53 :SPORT_RUNNING;
+        push %tmp.54;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_24_72_44_end:
+        %tmp.55 = phi [%tmp.50 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_24_72_44_begin] [%tmp.52 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_24_72_44_true] [%tmp.54 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_24_72_44_else_false] [%tmp.55 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_24_72_44_end];
+        %tmp.56 = dup %tmp.43;
+        %tmp.57 = aputv %tmp.56 %tmp.45 %tmp.55;
+        %tmp.59 = const :subSport;
+        symbol [ subSport %tmp.59 73 13 21 const ];
+        symbol [ ActivityRecording %tmp.60 73 25 42 ];
+        %tmp.60 = getm $.Toybox.ActivityRecording;
+        symbol [ SUB_SPORT_GENERIC %tmp.61 73 43 60 ];
+        %tmp.61 = getv %tmp.60 :SUB_SPORT_GENERIC;
+        %tmp.62 = dup %tmp.57;
+        %tmp.63 = aputv %tmp.62 %tmp.59 %tmp.61;
+        %tmp.64 = invoke %tmp.36 %tmp.37(%tmp.63);
+        symbol [ _session ? 68 8 16 ];
+        putv self :_session %tmp.64;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 77 8 ]
+        symbol [ FitWriter %tmp.68 77 25 34 ];
+        %tmp.68 = getv ? :FitWriter;
+        symbol [ _session %tmp.70 77 35 43 ];
+        %tmp.70 = getv ? :_session;
+        symbol [ _sensorManager %tmp.72 77 45 59 ];
+        %tmp.72 = getv ? :_sensorManager;
+        symbol [ gyroAvailable %tmp.73 77 60 73 ];
+        %tmp.73 = getv %tmp.72 :gyroAvailable;
+        %tmp.65 = newc %tmp.68 (%tmp.70, %tmp.73);
+        symbol [ _fitWriter ? 77 8 18 ];
+        putv self :_fitWriter %tmp.65;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 80 8 ]
+        symbol [ AppView %tmp.77 80 20 27 ];
+        %tmp.77 = getv ? :AppView;
+        symbol [ _sensorManager %tmp.79 80 28 42 ];
+        %tmp.79 = getv ? :_sensorManager;
+        symbol [ _userProfile %tmp.81 80 44 56 ];
+        %tmp.81 = getv ? :_userProfile;
+        %tmp.82 = lgetv %activityType.1;
+        symbol [ activityType %tmp.82 80 58 70 ];
+        %tmp.83 = lgetv %poolLength.4;
+        symbol [ poolLength %tmp.83 80 72 82 ];
+        %tmp.74 = newc %tmp.77 (%tmp.79, %tmp.81, %tmp.82, %tmp.83);
+        symbol [ _view ? 80 8 13 ];
+        putv self :_view %tmp.74;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 81 8 ]
+        symbol [ AppDelegate %tmp.87 81 24 35 ];
+        %tmp.87 = getv ? :AppDelegate;
+        symbol [ _view %tmp.89 81 36 41 ];
+        %tmp.89 = getv ? :_view;
+        %tmp.84 = newc %tmp.87 (%tmp.89);
+        symbol [ _delegate ? 81 8 17 ];
+        putv self :_delegate %tmp.84;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 82 8 ]
+        %tmp.90 = self;
+        symbol [ _syncViewState %tmp.91 82 8 22 ];
+        %tmp.91 = getv function %tmp.90 :_syncViewState;
+        invoke %tmp.90 %tmp.91();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_53_50_83_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 86; @symbol_functiondef = [onStop,86,13,19]; @symbol_param<0> = [state,86,20,25]; @symbol_param<0>_type<0> = [Dictionary,86,29,39]; ]
+    function onStop(state as Dictionary or Null) as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_86_50_105_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 87 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_87_8_93_8_if_stmt:
+        symbol [ _isFinalized %tmp.2 87 13 25 ];
+        %tmp.2 = getv ? :_isFinalized;
+        %tmp.3 = not %tmp.2;
+        bf %tmp.3 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_87_8_93_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_87_8_93_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_87_27_93_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 88 12 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_88_12_92_12_if_stmt:
+        symbol [ _hasStarted %tmp.5 88 16 27 ];
+        %tmp.5 = getv ? :_hasStarted;
+        bf %tmp.5 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_88_12_92_12_if_else_false;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_88_12_92_12_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_88_29_90_12_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 89 16 ]
+        %tmp.6 = self;
+        symbol [ _finalizeRecording %tmp.7 89 16 34 ];
+        %tmp.7 = getv function %tmp.6 :_finalizeRecording;
+        %tmp.8 = true;
+        invoke %tmp.6 %tmp.7(%tmp.8);
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_88_29_90_12_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_88_12_92_12_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_88_12_92_12_if_else_false:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_90_19_92_12_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 91 16 ]
+        %tmp.9 = self;
+        symbol [ _finalizeRecording %tmp.10 91 16 34 ];
+        %tmp.10 = getv function %tmp.9 :_finalizeRecording;
+        %tmp.11 = false;
+        invoke %tmp.9 %tmp.10(%tmp.11);
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_90_19_92_12_stop:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_88_12_92_12_if_end:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_87_27_93_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_87_8_93_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_87_8_93_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 96 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_96_8_99_8_if_stmt:
+        symbol [ _timer %tmp.13 96 12 18 ];
+        %tmp.13 = getv ? :_timer;
+        %tmp.14 = null;
+        %tmp.15 = ne %tmp.13 %tmp.14;
+        bf %tmp.15 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_96_8_99_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_96_8_99_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_96_28_99_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 97 12 ]
+        symbol [ _timer %tmp.17 97 12 18 ];
+        %tmp.17 = getv ? :_timer;
+        %tmp.18 = as %tmp.17 { (!Null) };
+        symbol [ stop %tmp.19 97 19 23 ];
+        %tmp.19 = getv function %tmp.18 :stop;
+        invoke %tmp.18 %tmp.19();
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 98 12 ]
         %tmp.20 = null;
-        %tmp.21 = ne %tmp.19 %tmp.20;
-        bf %tmp.21 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_8_72_8_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_34_70_52_true:
-        symbol [ _sensorManager %tmp.23 70 34 48 ];
-        %tmp.23 = getv ? :_sensorManager;
-        %tmp.24 = null;
-        %tmp.25 = ne %tmp.23 %tmp.24;
-        push %tmp.25;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_34_70_52_end:
-        %tmp.26 = phi [%tmp.21 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_12_70_52_begin] [%tmp.25 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_34_70_52_true] [%tmp.26 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_34_70_52_end];
-        bf %tmp.26 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_8_72_8_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_8_72_8_if_true:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_58_72_8_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 71 12 ]
-        symbol [ _fitWriter %tmp.28 71 12 22 ];
-        %tmp.28 = getv ? :_fitWriter;
-        %tmp.29 = as %tmp.28 { (!Null) };
-        symbol [ writeSensorData %tmp.30 71 23 38 ];
-        %tmp.30 = getv function %tmp.29 :writeSensorData;
-        symbol [ _sensorManager %tmp.32 71 39 53 ];
-        %tmp.32 = getv ? :_sensorManager;
-        %tmp.33 = as %tmp.32 { (!Null) };
-        invoke %tmp.29 %tmp.30(%tmp.33);
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_58_72_8_stop:
-        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_8_72_8_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_70_8_72_8_if_end:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 74 8 ]
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_74_8_78_8_if_stmt:
-        symbol [ _session %tmp.35 74 12 20 ];
-        %tmp.35 = getv ? :_session;
-        %tmp.36 = null;
-        %tmp.37 = ne %tmp.35 %tmp.36;
-        bf %tmp.37 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_74_8_78_8_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_74_8_78_8_if_true:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_74_30_78_8_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 75 12 ]
-        symbol [ _session %tmp.39 75 12 20 ];
-        %tmp.39 = getv ? :_session;
-        %tmp.40 = as %tmp.39 { (!Null) };
-        symbol [ stop %tmp.41 75 21 25 ];
-        %tmp.41 = getv function %tmp.40 :stop;
-        invoke %tmp.40 %tmp.41();
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 76 12 ]
-        symbol [ _session %tmp.43 76 12 20 ];
-        %tmp.43 = getv ? :_session;
-        symbol [ save %tmp.44 76 21 25 ];
-        %tmp.44 = getv function %tmp.43 :save;
-        invoke %tmp.43 %tmp.44();
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 77 12 ]
-        %tmp.45 = null;
-        symbol [ _session ? 77 12 20 ];
-        putv self :_session %tmp.45;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_74_30_78_8_stop:
-        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_74_8_78_8_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_74_8_78_8_if_end:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_57_50_79_4_stop:
+        symbol [ _timer ? 98 12 18 ];
+        putv self :_timer %tmp.20;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_96_28_99_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_96_8_99_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_96_8_99_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 102 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_102_8_104_8_if_stmt:
+        symbol [ _sensorManager %tmp.22 102 12 26 ];
+        %tmp.22 = getv ? :_sensorManager;
+        %tmp.23 = null;
+        %tmp.24 = ne %tmp.22 %tmp.23;
+        bf %tmp.24 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_102_8_104_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_102_8_104_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_102_36_104_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 103 12 ]
+        symbol [ _sensorManager %tmp.26 103 12 26 ];
+        %tmp.26 = getv ? :_sensorManager;
+        %tmp.27 = as %tmp.26 { (!Null) };
+        symbol [ stop %tmp.28 103 27 31 ];
+        %tmp.28 = getv function %tmp.27 :stop;
+        invoke %tmp.27 %tmp.28();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_102_36_104_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_102_8_104_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_102_8_104_8_if_end:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_86_50_105_4_stop:
     }
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 82; @symbol_functiondef = [onTimer,82,13,20]; ]
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 108; @symbol_functiondef = [onTimer,108,13,20]; ]
     function onTimer() as Void {
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_82_31_84_4_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 83 8 ]
-        symbol [ WatchUi %tmp.1 83 8 15 ];
-        %tmp.1 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.2 83 16 29 ];
-        %tmp.2 = getv function %tmp.1 :requestUpdate;
-        invoke %tmp.1 %tmp.2();
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_82_31_84_4_stop:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_108_31_115_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 109 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_109_8_111_8_if_stmt:
+        symbol [ _isRecording %tmp.2 109 12 24 ];
+        %tmp.2 = getv ? :_isRecording;
+        bf %tmp.2 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_109_8_111_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_109_8_111_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_109_26_111_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 110 12 ]
+        %tmp.3 = self;
+        symbol [ _updateElapsed %tmp.4 110 12 26 ];
+        %tmp.4 = getv function %tmp.3 :_updateElapsed;
+        invoke %tmp.3 %tmp.4();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_109_26_111_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_109_8_111_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_109_8_111_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 113 8 ]
+        %tmp.5 = self;
+        symbol [ _syncViewState %tmp.6 113 8 22 ];
+        %tmp.6 = getv function %tmp.5 :_syncViewState;
+        invoke %tmp.5 %tmp.6();
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 114 8 ]
+        symbol [ WatchUi %tmp.7 114 8 15 ];
+        %tmp.7 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.8 114 16 29 ];
+        %tmp.8 = getv function %tmp.7 :requestUpdate;
+        invoke %tmp.7 %tmp.8();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_108_31_115_4_stop:
     }
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 86; @symbol_functiondef = [getInitialView,86,13,27]; @symbol_return<0> = [WatchUi,86,34,41]; @symbol_return<1> = [Views,86,42,47]; @symbol_return<2> = [WatchUi,86,53,60]; @symbol_return<3> = [Views,86,61,66]; @symbol_return<4> = [WatchUi,86,68,75]; @symbol_return<5> = [InputDelegates,86,76,90]; ]
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 117; @symbol_functiondef = [toggleRecording,117,13,28]; ]
+    function toggleRecording() as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_117_39_140_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 118 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_118_8_120_8_if_stmt:
+        symbol [ _isFinalized %tmp.2 118 12 24 ];
+        %tmp.2 = getv ? :_isFinalized;
+        bf %tmp.2 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_118_8_120_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_118_8_120_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_118_26_120_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 119 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_118_26_120_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_118_8_120_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_118_8_120_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 122 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_122_8_125_8_if_stmt:
+        symbol [ _showPauseMenu %tmp.4 122 12 26 ];
+        %tmp.4 = getv ? :_showPauseMenu;
+        bf %tmp.4 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_122_8_125_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_122_8_125_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_122_28_125_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 123 12 ]
+        %tmp.5 = self;
+        symbol [ _selectPauseMenu %tmp.6 123 12 28 ];
+        %tmp.6 = getv function %tmp.5 :_selectPauseMenu;
+        invoke %tmp.5 %tmp.6();
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 124 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_122_28_125_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_122_8_125_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_122_8_125_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 127 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_127_8_130_8_if_stmt:
+        symbol [ _hasStarted %tmp.8 127 13 24 ];
+        %tmp.8 = getv ? :_hasStarted;
+        %tmp.9 = not %tmp.8;
+        bf %tmp.9 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_127_8_130_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_127_8_130_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_127_26_130_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 128 12 ]
+        %tmp.10 = self;
+        symbol [ _startRecording %tmp.11 128 12 27 ];
+        %tmp.11 = getv function %tmp.10 :_startRecording;
+        invoke %tmp.10 %tmp.11();
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 129 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_127_26_130_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_127_8_130_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_127_8_130_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 132 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_132_8_139_8_if_stmt:
+        symbol [ _isRecording %tmp.13 132 12 24 ];
+        %tmp.13 = getv ? :_isRecording;
+        bf %tmp.13 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_132_8_139_8_if_else_false;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_132_8_139_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_132_26_137_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 133 12 ]
+        %tmp.14 = self;
+        symbol [ _pauseRecording %tmp.15 133 12 27 ];
+        %tmp.15 = getv function %tmp.14 :_pauseRecording;
+        invoke %tmp.14 %tmp.15();
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 134 12 ]
+        %tmp.16 = true;
+        symbol [ _showPauseMenu ? 134 12 26 ];
+        putv self :_showPauseMenu %tmp.16;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 135 12 ]
+        %tmp.17 = 0;
+        symbol [ _pauseMenuIndex ? 135 12 27 ];
+        putv self :_pauseMenuIndex %tmp.17;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 136 12 ]
+        %tmp.18 = self;
+        symbol [ _syncViewState %tmp.19 136 12 26 ];
+        %tmp.19 = getv function %tmp.18 :_syncViewState;
+        invoke %tmp.18 %tmp.19();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_132_26_137_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_132_8_139_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_132_8_139_8_if_else_false:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_137_15_139_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 138 12 ]
+        %tmp.20 = self;
+        symbol [ _resumeRecording %tmp.21 138 12 28 ];
+        %tmp.21 = getv function %tmp.20 :_resumeRecording;
+        invoke %tmp.20 %tmp.21();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_137_15_139_8_stop:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_132_8_139_8_if_end:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_117_39_140_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 142; @symbol_functiondef = [pauseMenuUp,142,13,24]; ]
+    function pauseMenuUp() as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_142_35_153_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 143 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_143_8_145_8_if_stmt:
+        symbol [ _showPauseMenu %tmp.2 143 13 27 ];
+        %tmp.2 = getv ? :_showPauseMenu;
+        %tmp.3 = not %tmp.2;
+        bf %tmp.3 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_143_8_145_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_143_8_145_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_143_29_145_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 144 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_143_29_145_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_143_8_145_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_143_8_145_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 147 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_147_8_151_8_if_stmt:
+        symbol [ _pauseMenuIndex %tmp.5 147 12 27 ];
+        %tmp.5 = getv ? :_pauseMenuIndex;
+        %tmp.6 = 0;
+        %tmp.7 = lte %tmp.5 %tmp.6;
+        bf %tmp.7 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_147_8_151_8_if_else_false;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_147_8_151_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_147_34_149_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 148 12 ]
+        %tmp.8 = 2;
+        symbol [ _pauseMenuIndex ? 148 12 27 ];
+        putv self :_pauseMenuIndex %tmp.8;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_147_34_149_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_147_8_151_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_147_8_151_8_if_else_false:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_149_15_151_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 150 12 ]
+        symbol [ _pauseMenuIndex %tmp.9 150 12 27 ];
+        %tmp.9 = getv self :_pauseMenuIndex;
+        %tmp.10 = 1;
+        %tmp.11 = sub %tmp.9 %tmp.10;
+        symbol [ _pauseMenuIndex ? 150 12 27 ];
+        putv self :_pauseMenuIndex dup %tmp.11;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_149_15_151_8_stop:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_147_8_151_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 152 8 ]
+        %tmp.12 = self;
+        symbol [ _syncViewState %tmp.13 152 8 22 ];
+        %tmp.13 = getv function %tmp.12 :_syncViewState;
+        invoke %tmp.12 %tmp.13();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_142_35_153_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 155; @symbol_functiondef = [pauseMenuDown,155,13,26]; ]
+    function pauseMenuDown() as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_155_37_166_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 156 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_156_8_158_8_if_stmt:
+        symbol [ _showPauseMenu %tmp.2 156 13 27 ];
+        %tmp.2 = getv ? :_showPauseMenu;
+        %tmp.3 = not %tmp.2;
+        bf %tmp.3 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_156_8_158_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_156_8_158_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_156_29_158_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 157 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_156_29_158_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_156_8_158_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_156_8_158_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 160 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_160_8_164_8_if_stmt:
+        symbol [ _pauseMenuIndex %tmp.5 160 12 27 ];
+        %tmp.5 = getv ? :_pauseMenuIndex;
+        %tmp.6 = 2;
+        %tmp.7 = gte %tmp.5 %tmp.6;
+        bf %tmp.7 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_160_8_164_8_if_else_false;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_160_8_164_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_160_34_162_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 161 12 ]
+        %tmp.8 = 0;
+        symbol [ _pauseMenuIndex ? 161 12 27 ];
+        putv self :_pauseMenuIndex %tmp.8;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_160_34_162_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_160_8_164_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_160_8_164_8_if_else_false:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_162_15_164_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 163 12 ]
+        symbol [ _pauseMenuIndex %tmp.9 163 12 27 ];
+        %tmp.9 = getv self :_pauseMenuIndex;
+        %tmp.10 = 1;
+        %tmp.11 = add %tmp.9 %tmp.10;
+        symbol [ _pauseMenuIndex ? 163 12 27 ];
+        putv self :_pauseMenuIndex dup %tmp.11;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_162_15_164_8_stop:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_160_8_164_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 165 8 ]
+        %tmp.12 = self;
+        symbol [ _syncViewState %tmp.13 165 8 22 ];
+        %tmp.13 = getv function %tmp.12 :_syncViewState;
+        invoke %tmp.12 %tmp.13();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_155_37_166_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 168; @symbol_functiondef = [closePauseMenu,168,13,27]; ]
+    function closePauseMenu() as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_168_38_175_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 169 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_169_8_171_8_if_stmt:
+        symbol [ _showPauseMenu %tmp.2 169 13 27 ];
+        %tmp.2 = getv ? :_showPauseMenu;
+        %tmp.3 = not %tmp.2;
+        bf %tmp.3 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_169_8_171_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_169_8_171_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_169_29_171_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 170 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_169_29_171_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_169_8_171_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_169_8_171_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 173 8 ]
+        %tmp.4 = false;
+        symbol [ _showPauseMenu ? 173 8 22 ];
+        putv self :_showPauseMenu %tmp.4;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 174 8 ]
+        %tmp.5 = self;
+        symbol [ _syncViewState %tmp.6 174 8 22 ];
+        %tmp.6 = getv function %tmp.5 :_syncViewState;
+        invoke %tmp.5 %tmp.6();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_168_38_175_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 177; @symbol_functiondef = [saveRecording,177,13,26]; ]
+    function saveRecording() as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_177_37_182_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 178 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_8_180_8_if_stmt:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_12_178_29_begin:
+        symbol [ _isFinalized %tmp.2 178 12 24 ];
+        %tmp.2 = getv ? :_isFinalized;
+        bt %tmp.2 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_8_180_8_if_true;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_28_178_29_false:
+        symbol [ _hasStarted %tmp.4 178 29 40 ];
+        %tmp.4 = getv ? :_hasStarted;
+        %tmp.5 = not %tmp.4;
+        push %tmp.5;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_28_178_29_end:
+        %tmp.6 = phi [%tmp.2 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_12_178_29_begin] [%tmp.5 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_28_178_29_false] [%tmp.6 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_28_178_29_end];
+        bf %tmp.6 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_8_180_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_8_180_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_42_180_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 179 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_42_180_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_8_180_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_178_8_180_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 181 8 ]
+        %tmp.7 = self;
+        symbol [ _finalizeRecording %tmp.8 181 8 26 ];
+        %tmp.8 = getv function %tmp.7 :_finalizeRecording;
+        %tmp.9 = true;
+        invoke %tmp.7 %tmp.8(%tmp.9);
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_177_37_182_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 184; @symbol_functiondef = [discardRecording,184,13,29]; ]
+    function discardRecording() as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_184_40_189_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 185 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_185_8_187_8_if_stmt:
+        symbol [ _isFinalized %tmp.2 185 12 24 ];
+        %tmp.2 = getv ? :_isFinalized;
+        bf %tmp.2 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_185_8_187_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_185_8_187_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_185_26_187_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 186 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_185_26_187_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_185_8_187_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_185_8_187_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 188 8 ]
+        %tmp.3 = self;
+        symbol [ _finalizeRecording %tmp.4 188 8 26 ];
+        %tmp.4 = getv function %tmp.3 :_finalizeRecording;
+        %tmp.5 = false;
+        invoke %tmp.3 %tmp.4(%tmp.5);
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_184_40_189_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 191; @symbol_functiondef = [isPauseMenuVisible,191,13,31]; @symbol_return<0> = [Boolean,191,37,44]; ]
+    function isPauseMenuVisible() as Boolean {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_191_45_193_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 192 8 ]
+        symbol [ _showPauseMenu %tmp.2 192 15 29 ];
+        %tmp.2 = getv ? :_showPauseMenu;
+        ret %tmp.2;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_191_45_193_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 195; @symbol_functiondef = [_startRecording,195,21,36]; ]
+    private
+    function _startRecording() as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_195_47_205_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 196 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_196_8_198_8_if_stmt:
+        symbol [ _session %tmp.2 196 12 20 ];
+        %tmp.2 = getv ? :_session;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_196_8_198_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_196_8_198_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_196_30_198_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 197 12 ]
+        symbol [ _session %tmp.6 197 12 20 ];
+        %tmp.6 = getv ? :_session;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        symbol [ start %tmp.8 197 21 26 ];
+        %tmp.8 = getv function %tmp.7 :start;
+        invoke %tmp.7 %tmp.8();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_196_30_198_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_196_8_198_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_196_8_198_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 200 8 ]
+        %tmp.9 = true;
+        symbol [ _hasStarted ? 200 8 19 ];
+        putv self :_hasStarted %tmp.9;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 201 8 ]
+        %tmp.10 = true;
+        symbol [ _isRecording ? 201 8 20 ];
+        putv self :_isRecording %tmp.10;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 202 8 ]
+        %tmp.11 = "REC";
+        symbol [ _statusText ? 202 8 19 ];
+        putv self :_statusText %tmp.11;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 203 8 ]
+        symbol [ System %tmp.12 203 22 28 ];
+        %tmp.12 = getm $.Toybox.System;
+        symbol [ getTimer %tmp.13 203 29 37 ];
+        %tmp.13 = getv function %tmp.12 :getTimer;
+        %tmp.14 = invoke %tmp.12 %tmp.13();
+        symbol [ _lastTickMs ? 203 8 19 ];
+        putv self :_lastTickMs %tmp.14;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 204 8 ]
+        %tmp.15 = self;
+        symbol [ _syncViewState %tmp.16 204 8 22 ];
+        %tmp.16 = getv function %tmp.15 :_syncViewState;
+        invoke %tmp.15 %tmp.16();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_195_47_205_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 207; @symbol_functiondef = [_pauseRecording,207,21,36]; ]
+    private
+    function _pauseRecording() as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_207_47_216_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 208 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_208_8_210_8_if_stmt:
+        symbol [ _isRecording %tmp.2 208 13 25 ];
+        %tmp.2 = getv ? :_isRecording;
+        %tmp.3 = not %tmp.2;
+        bf %tmp.3 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_208_8_210_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_208_8_210_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_208_27_210_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 209 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_208_27_210_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_208_8_210_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_208_8_210_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 212 8 ]
+        %tmp.4 = self;
+        symbol [ _updateElapsed %tmp.5 212 8 22 ];
+        %tmp.5 = getv function %tmp.4 :_updateElapsed;
+        invoke %tmp.4 %tmp.5();
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 213 8 ]
+        %tmp.6 = false;
+        symbol [ _isRecording ? 213 8 20 ];
+        putv self :_isRecording %tmp.6;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 214 8 ]
+        %tmp.7 = "PAUSE";
+        symbol [ _statusText ? 214 8 19 ];
+        putv self :_statusText %tmp.7;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 215 8 ]
+        %tmp.8 = self;
+        symbol [ _syncViewState %tmp.9 215 8 22 ];
+        %tmp.9 = getv function %tmp.8 :_syncViewState;
+        invoke %tmp.8 %tmp.9();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_207_47_216_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 218; @symbol_functiondef = [_resumeRecording,218,21,37]; ]
+    private
+    function _resumeRecording() as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_218_48_228_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 219 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_8_221_8_if_stmt:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_12_219_45_begin:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_12_219_28_begin:
+        symbol [ _isRecording %tmp.2 219 12 24 ];
+        %tmp.2 = getv ? :_isRecording;
+        bt %tmp.2 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_8_221_8_if_true;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_28_219_28_false:
+        symbol [ _isFinalized %tmp.4 219 28 40 ];
+        %tmp.4 = getv ? :_isFinalized;
+        push %tmp.4;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_28_219_28_end:
+        %tmp.5 = phi [%tmp.2 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_12_219_28_begin] [%tmp.4 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_28_219_28_false] [%tmp.5 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_28_219_28_end];
+        bt %tmp.5 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_8_221_8_if_true;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_44_219_45_false:
+        symbol [ _hasStarted %tmp.7 219 45 56 ];
+        %tmp.7 = getv ? :_hasStarted;
+        %tmp.8 = not %tmp.7;
+        push %tmp.8;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_44_219_45_end:
+        %tmp.9 = phi [%tmp.5 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_12_219_45_begin] [%tmp.8 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_44_219_45_false] [%tmp.9 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_44_219_45_end];
+        bf %tmp.9 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_8_221_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_8_221_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_58_221_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 220 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_58_221_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_8_221_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_219_8_221_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 223 8 ]
+        %tmp.10 = true;
+        symbol [ _isRecording ? 223 8 20 ];
+        putv self :_isRecording %tmp.10;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 224 8 ]
+        %tmp.11 = "REC";
+        symbol [ _statusText ? 224 8 19 ];
+        putv self :_statusText %tmp.11;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 225 8 ]
+        %tmp.12 = false;
+        symbol [ _showPauseMenu ? 225 8 22 ];
+        putv self :_showPauseMenu %tmp.12;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 226 8 ]
+        symbol [ System %tmp.13 226 22 28 ];
+        %tmp.13 = getm $.Toybox.System;
+        symbol [ getTimer %tmp.14 226 29 37 ];
+        %tmp.14 = getv function %tmp.13 :getTimer;
+        %tmp.15 = invoke %tmp.13 %tmp.14();
+        symbol [ _lastTickMs ? 226 8 19 ];
+        putv self :_lastTickMs %tmp.15;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 227 8 ]
+        %tmp.16 = self;
+        symbol [ _syncViewState %tmp.17 227 8 22 ];
+        %tmp.17 = getv function %tmp.16 :_syncViewState;
+        invoke %tmp.16 %tmp.17();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_218_48_228_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 230; @symbol_functiondef = [_finalizeRecording,230,21,39]; @symbol_param<0> = [saveData,230,40,48]; @symbol_param<0>_type<0> = [Boolean,230,52,59]; ]
+    private
+    function _finalizeRecording(saveData as Boolean) as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_230_69_260_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 231 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_231_8_233_8_if_stmt:
+        symbol [ _isFinalized %tmp.2 231 12 24 ];
+        %tmp.2 = getv ? :_isFinalized;
+        bf %tmp.2 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_231_8_233_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_231_8_233_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_231_26_233_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 232 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_231_26_233_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_231_8_233_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_231_8_233_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 235 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_235_8_237_8_if_stmt:
+        symbol [ _isRecording %tmp.4 235 12 24 ];
+        %tmp.4 = getv ? :_isRecording;
+        bf %tmp.4 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_235_8_237_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_235_8_237_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_235_26_237_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 236 12 ]
+        %tmp.5 = self;
+        symbol [ _updateElapsed %tmp.6 236 12 26 ];
+        %tmp.6 = getv function %tmp.5 :_updateElapsed;
+        invoke %tmp.5 %tmp.6();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_235_26_237_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_235_8_237_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_235_8_237_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 239 8 ]
+        %tmp.7 = false;
+        symbol [ _isRecording ? 239 8 20 ];
+        putv self :_isRecording %tmp.7;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 240 8 ]
+        %tmp.8 = false;
+        symbol [ _showPauseMenu ? 240 8 22 ];
+        putv self :_showPauseMenu %tmp.8;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 242 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_242_8_256_8_if_stmt:
+        symbol [ _session %tmp.10 242 12 20 ];
+        %tmp.10 = getv ? :_session;
+        %tmp.11 = null;
+        %tmp.12 = ne %tmp.10 %tmp.11;
+        bf %tmp.12 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_242_8_256_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_242_8_256_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_242_30_256_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 243 12 ]
+        symbol [ _session %tmp.14 243 12 20 ];
+        %tmp.14 = getv ? :_session;
+        %tmp.15 = as %tmp.14 { (!Null) };
+        symbol [ stop %tmp.16 243 21 25 ];
+        %tmp.16 = getv function %tmp.15 :stop;
+        invoke %tmp.15 %tmp.16();
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 245 12 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_12_253_12_if_stmt:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_16_245_28_begin:
+        %tmp.17 = lgetv %saveData;
+        symbol [ saveData %tmp.17 245 16 24 ];
+        bf %tmp.17 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_12_253_12_if_else_false;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_28_245_28_true:
+        symbol [ _hasStarted %tmp.19 245 28 39 ];
+        %tmp.19 = getv ? :_hasStarted;
+        push %tmp.19;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_28_245_28_end:
+        %tmp.20 = phi [%tmp.17 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_16_245_28_begin] [%tmp.19 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_28_245_28_true] [%tmp.20 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_28_245_28_end];
+        bf %tmp.20 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_12_253_12_if_else_false;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_12_253_12_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_41_251_12_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 246 16 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_16_248_16_if_stmt:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_20_246_60_begin:
+        symbol [ _fitWriter %tmp.22 246 20 30 ];
+        %tmp.22 = getv ? :_fitWriter;
+        %tmp.23 = null;
+        %tmp.24 = ne %tmp.22 %tmp.23;
+        bf %tmp.24 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_16_248_16_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_42_246_60_true:
+        symbol [ _sensorManager %tmp.26 246 42 56 ];
+        %tmp.26 = getv ? :_sensorManager;
+        %tmp.27 = null;
+        %tmp.28 = ne %tmp.26 %tmp.27;
+        push %tmp.28;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_42_246_60_end:
+        %tmp.29 = phi [%tmp.24 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_20_246_60_begin] [%tmp.28 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_42_246_60_true] [%tmp.29 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_42_246_60_end];
+        bf %tmp.29 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_16_248_16_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_16_248_16_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_66_248_16_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 247 20 ]
+        symbol [ _fitWriter %tmp.31 247 20 30 ];
+        %tmp.31 = getv ? :_fitWriter;
+        %tmp.32 = as %tmp.31 { (!Null) };
+        symbol [ writeSensorData %tmp.33 247 31 46 ];
+        %tmp.33 = getv function %tmp.32 :writeSensorData;
+        symbol [ _sensorManager %tmp.35 247 47 61 ];
+        %tmp.35 = getv ? :_sensorManager;
+        %tmp.36 = as %tmp.35 { (!Null) };
+        invoke %tmp.32 %tmp.33(%tmp.36);
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_66_248_16_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_16_248_16_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_246_16_248_16_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 249 16 ]
+        symbol [ _session %tmp.38 249 16 24 ];
+        %tmp.38 = getv ? :_session;
+        symbol [ save %tmp.39 249 25 29 ];
+        %tmp.39 = getv function %tmp.38 :save;
+        invoke %tmp.38 %tmp.39();
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 250 16 ]
+        %tmp.40 = "SAVED";
+        symbol [ _statusText ? 250 16 27 ];
+        putv self :_statusText %tmp.40;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_41_251_12_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_12_253_12_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_12_253_12_if_else_false:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_251_19_253_12_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 252 16 ]
+        %tmp.41 = "DISCARD";
+        symbol [ _statusText ? 252 16 27 ];
+        putv self :_statusText %tmp.41;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_251_19_253_12_stop:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_245_12_253_12_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 255 12 ]
+        %tmp.42 = null;
+        symbol [ _session ? 255 12 20 ];
+        putv self :_session %tmp.42;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_242_30_256_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_242_8_256_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_242_8_256_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 258 8 ]
+        %tmp.43 = true;
+        symbol [ _isFinalized ? 258 8 20 ];
+        putv self :_isFinalized %tmp.43;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 259 8 ]
+        %tmp.44 = self;
+        symbol [ _syncViewState %tmp.45 259 8 22 ];
+        %tmp.45 = getv function %tmp.44 :_syncViewState;
+        invoke %tmp.44 %tmp.45();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_230_69_260_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 262; @symbol_functiondef = [_updateElapsed,262,21,35]; ]
+    private
+    function _updateElapsed() as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_262_46_274_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 263 8 ]
+        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_262_46_274_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_262_46_274_4_stop" ]
+        %now.1 = local;
+        symbol [ now %now.1 263 12 15 ];
+        symbol [ System %tmp.1 263 18 24 ];
+        %tmp.1 = getm $.Toybox.System;
+        symbol [ getTimer %tmp.2 263 25 33 ];
+        %tmp.2 = getv function %tmp.1 :getTimer;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %now.1 %tmp.3;
+        symbol [ now %now.1 263 12 15 ];
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 264 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_264_8_267_8_if_stmt:
+        symbol [ _lastTickMs %tmp.5 264 12 23 ];
+        %tmp.5 = getv ? :_lastTickMs;
+        %tmp.6 = 0;
+        %tmp.7 = eq %tmp.5 %tmp.6;
+        bf %tmp.7 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_264_8_267_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_264_8_267_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_264_30_267_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 265 12 ]
+        %tmp.8 = lgetv %now.1;
+        symbol [ now %tmp.8 265 26 29 ];
+        symbol [ _lastTickMs ? 265 12 23 ];
+        putv self :_lastTickMs %tmp.8;
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 266 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_264_30_267_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_264_8_267_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_264_8_267_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 269 8 ]
+        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_262_46_274_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_262_46_274_4_stop" ]
+        %delta.2 = local;
+        symbol [ delta %delta.2 269 12 17 ];
+        %tmp.9 = lgetv %now.1;
+        symbol [ now %tmp.9 269 20 23 ];
+        symbol [ _lastTickMs %tmp.11 269 26 37 ];
+        %tmp.11 = getv ? :_lastTickMs;
+        %tmp.12 = sub %tmp.9 %tmp.11;
+        lputv %delta.2 %tmp.12;
+        symbol [ delta %delta.2 269 12 17 ];
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 270 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_270_8_272_8_if_stmt:
+        %tmp.13 = lgetv %delta.2;
+        symbol [ delta %tmp.13 270 12 17 ];
+        %tmp.14 = 0;
+        %tmp.15 = gt %tmp.13 %tmp.14;
+        bf %tmp.15 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_270_8_272_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_270_8_272_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_270_23_272_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 271 12 ]
+        symbol [ _elapsedMs %tmp.16 271 12 22 ];
+        %tmp.16 = getv self :_elapsedMs;
+        %tmp.17 = lgetv %delta.2;
+        symbol [ delta %tmp.17 271 26 31 ];
+        %tmp.18 = add %tmp.16 %tmp.17;
+        symbol [ _elapsedMs ? 271 12 22 ];
+        putv self :_elapsedMs dup %tmp.18;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_270_23_272_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_270_8_272_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_270_8_272_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 273 8 ]
+        %tmp.19 = lgetv %now.1;
+        symbol [ now %tmp.19 273 22 25 ];
+        symbol [ _lastTickMs ? 273 8 19 ];
+        putv self :_lastTickMs %tmp.19;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_262_46_274_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 276; @symbol_functiondef = [_syncViewState,276,21,35]; ]
+    private
+    function _syncViewState() as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_276_46_283_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 277 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_277_8_279_8_if_stmt:
+        symbol [ _view %tmp.2 277 12 17 ];
+        %tmp.2 = getv ? :_view;
+        %tmp.3 = null;
+        %tmp.4 = eq %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_277_8_279_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_277_8_279_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_277_27_279_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 278 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_277_27_279_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_277_8_279_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_277_8_279_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 281 8 ]
+        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_276_46_283_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_276_46_283_4_stop" ]
+        %elapsedSec.1 = local;
+        symbol [ elapsedSec %elapsedSec.1 281 12 22 ];
+        symbol [ _elapsedMs %tmp.6 281 26 36 ];
+        %tmp.6 = getv ? :_elapsedMs;
+        %tmp.7 = 1000;
+        %tmp.8 = div %tmp.6 %tmp.7;
+        symbol [ toNumber %tmp.9 281 45 53 ];
+        %tmp.9 = getv function %tmp.8 :toNumber;
+        %tmp.10 = invoke %tmp.8 %tmp.9();
+        lputv %elapsedSec.1 %tmp.10;
+        symbol [ elapsedSec %elapsedSec.1 281 12 22 ];
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 282 8 ]
+        symbol [ _view %tmp.12 282 8 13 ];
+        %tmp.12 = getv ? :_view;
+        symbol [ setRecordingUi %tmp.13 282 14 28 ];
+        %tmp.13 = getv function %tmp.12 :setRecordingUi;
+        symbol [ _statusText %tmp.15 282 29 40 ];
+        %tmp.15 = getv ? :_statusText;
+        %tmp.16 = lgetv %elapsedSec.1;
+        symbol [ elapsedSec %tmp.16 282 42 52 ];
+        symbol [ _showPauseMenu %tmp.18 282 54 68 ];
+        %tmp.18 = getv ? :_showPauseMenu;
+        symbol [ _pauseMenuIndex %tmp.20 282 70 85 ];
+        %tmp.20 = getv ? :_pauseMenuIndex;
+        invoke %tmp.12 %tmp.13(%tmp.15, %tmp.16, %tmp.18, %tmp.20);
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_276_46_283_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 285; @symbol_functiondef = [_selectPauseMenu,285,21,37]; ]
+    private
+    function _selectPauseMenu() as Void {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_285_48_301_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 286 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_286_8_288_8_if_stmt:
+        symbol [ _showPauseMenu %tmp.2 286 13 27 ];
+        %tmp.2 = getv ? :_showPauseMenu;
+        %tmp.3 = not %tmp.2;
+        bf %tmp.3 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_286_8_288_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_286_8_288_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_286_29_288_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 287 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_286_29_288_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_286_8_288_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_286_8_288_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 290 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_290_8_293_8_if_stmt:
+        symbol [ _pauseMenuIndex %tmp.5 290 12 27 ];
+        %tmp.5 = getv ? :_pauseMenuIndex;
+        %tmp.6 = 0;
+        %tmp.7 = eq %tmp.5 %tmp.6;
+        bf %tmp.7 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_290_8_293_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_290_8_293_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_290_34_293_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 291 12 ]
+        %tmp.8 = self;
+        symbol [ _resumeRecording %tmp.9 291 12 28 ];
+        %tmp.9 = getv function %tmp.8 :_resumeRecording;
+        invoke %tmp.8 %tmp.9();
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 292 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_290_34_293_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_290_8_293_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_290_8_293_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 295 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_295_8_298_8_if_stmt:
+        symbol [ _pauseMenuIndex %tmp.11 295 12 27 ];
+        %tmp.11 = getv ? :_pauseMenuIndex;
+        %tmp.12 = 1;
+        %tmp.13 = eq %tmp.11 %tmp.12;
+        bf %tmp.13 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_295_8_298_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_295_8_298_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_295_34_298_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 296 12 ]
+        %tmp.14 = self;
+        symbol [ saveRecording %tmp.15 296 12 25 ];
+        %tmp.15 = getv function %tmp.14 :saveRecording;
+        invoke %tmp.14 %tmp.15();
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 297 12 ]
+        ret ?;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_295_34_298_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_295_8_298_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_295_8_298_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 300 8 ]
+        %tmp.16 = self;
+        symbol [ discardRecording %tmp.17 300 8 24 ];
+        %tmp.17 = getv function %tmp.16 :discardRecording;
+        invoke %tmp.16 %tmp.17();
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_285_48_301_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 303; @symbol_functiondef = [getInitialView,303,13,27]; @symbol_return<0> = [WatchUi,303,34,41]; @symbol_return<1> = [Views,303,42,47]; @symbol_return<2> = [WatchUi,303,53,60]; @symbol_return<3> = [Views,303,61,66]; @symbol_return<4> = [WatchUi,303,68,75]; @symbol_return<5> = [InputDelegates,303,76,90]; ]
     function getInitialView() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_86_92_89_4_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 88 8 ]
-        %tmp.1 = newa 1;
-        symbol [ WatchUi %tmp.4 88 20 27 ];
-        %tmp.4 = getm $.Toybox.WatchUi;
-        symbol [ View %tmp.5 88 28 32 ];
-        %tmp.5 = getv function ? %tmp.4 :View;
-        %tmp.2 = newc %tmp.5 ();
-        %tmp.6 = dup %tmp.1;
-        %tmp.7 = aputv %tmp.6 0 %tmp.2;
-        ret %tmp.7;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_86_92_89_4_stop:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_303_92_306_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 304 8 ]
+        %tmp.1 = self;
+        symbol [ _initializeRuntime %tmp.2 304 8 26 ];
+        %tmp.2 = getv function %tmp.1 :_initializeRuntime;
+        invoke %tmp.1 %tmp.2();
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc" 305 8 ]
+        %tmp.3 = newa 2;
+        symbol [ _view %tmp.5 305 16 21 ];
+        %tmp.5 = getv ? :_view;
+        %tmp.6 = dup %tmp.3;
+        %tmp.7 = aputv %tmp.6 0 %tmp.5;
+        symbol [ _delegate %tmp.9 305 23 32 ];
+        %tmp.9 = getv ? :_delegate;
+        %tmp.10 = dup %tmp.7;
+        %tmp.11 = aputv %tmp.10 1 %tmp.9;
+        ret %tmp.11;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_SpatioInsightApp_mc_303_92_306_4_stop:
     }
 }
 [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/SpatioInsightApp.mc"; @line = 1; ]

@@ -99,6 +99,21 @@ const VEHICLE_TYPES = [
     colors:['#d4e6f1','#a9cce3','#f1948a','#82e0aa','#f8c471','#85c1e9','#eeeeee'],
     brands:['Mercedes','MAN','Setra','Volvo','NEOPLAN'] },
 ];
+// ─── 後座乘客台詞 ─────────────────────────────────────────────────────────────
+const PASSENGER_LINES = [
+  { speaker: '老婆', text: '啊！小心！',     pitch: 1.5, rate: 1.3 },
+  { speaker: '老婆', text: '你在幹嘛！',     pitch: 1.4, rate: 1.2 },
+  { speaker: '老婆', text: '慢一點啦！',     pitch: 1.5, rate: 1.1 },
+  { speaker: '老婆', text: '我的天哪！',     pitch: 1.6, rate: 1.3 },
+  { speaker: '老婆', text: '嚇死我了！',     pitch: 1.4, rate: 1.2 },
+  { speaker: '老婆', text: '你要命嗎！',     pitch: 1.5, rate: 1.4 },
+  { speaker: '兒子', text: '爸爸前面有車！', pitch: 1.8, rate: 1.4 },
+  { speaker: '兒子', text: '好可怕喔！',     pitch: 1.9, rate: 1.3 },
+  { speaker: '兒子', text: '啊～我要下車！', pitch: 2.0, rate: 1.5 },
+  { speaker: '兒子', text: '爸爸小心！',     pitch: 1.8, rate: 1.5 },
+  { speaker: '兒子', text: '撞到了啦！',     pitch: 2.0, rate: 1.6 },
+];
+
 function pickVehicleType() {
   const total = VEHICLE_TYPES.reduce((s, t) => s + t.weight, 0);
   let r = Math.random() * total;
@@ -345,6 +360,13 @@ function initGame() {
   for (let i = 0; i < 150; i++) g.rainNear.push(newRainNear(true));
   for (let i = 0; i < 42;  i++) g.wsDrop.push(newWsDrop(true));
   for (let i = 0; i < 5;   i++) g.rainCurtains.push(newRainCurtain(true));
+
+  // 預先填充高速公路上的車輛（分散在不同距離）
+  [0.12, 0.22, 0.34, 0.47, 0.60].forEach(z => { if (Math.random() < 0.60) spawnCar(z); });
+
+  // 後座乘客狀態
+  g.screamCooldown = 7.0;           // 開始後 7 秒安靜
+  g.screamDisplay  = { text: '', timer: 0 };
 }
 
 // ─── Factories ───────────────────────────────────────────────────────────────
@@ -405,15 +427,15 @@ function updateTrees(dt) {
     if (g.trees[i].z > 1.02) g.trees[i] = makeTreeRow(rand(0, 0.05));
   }
 }
-function spawnCar() {
+function spawnCar(initZ = 0.02) {
   const vtype = pickVehicleType();
   // 大卡車/遊覽車 不占最左側車道 (minLaneIdx=1 → 只能用 LANES[1], LANES[2])
   const availableLanes = LANES.slice(vtype.minLaneIdx);
   const lane = pick(availableLanes);
-  if (g.cars.some(c => Math.abs(c.x - lane) < 0.05 && c.z < 0.18)) return;
+  if (g.cars.some(c => Math.abs(c.x - lane) < 0.05 && Math.abs(c.z - initZ) < 0.15)) return;
   const kph = vtype.baseKph + (Math.random() * 2 - 1) * vtype.kphRange;
   g.cars.push({
-    x: lane, z: 0.02,
+    x: lane, z: initZ,
     color: pick(vtype.colors),
     brand: pick(vtype.brands),
     type:  vtype.type,
@@ -453,6 +475,7 @@ function update(dt) {
   updateWipers(dt);
   updateLightning(dt);
   updateSplashes(dt);
+  maybeScream(dt);
   updateTrees(dt);
   for (const c of g.clouds) { c.x -= c.speed * dt; if (c.x + c.w < -0.1) c.x = 1.1; }
 }
@@ -529,21 +552,22 @@ function updateCars(dt) {
   g.spawnT -= dt;
   if (g.spawnT <= 0) {
     spawnCar();
-    g.spawnT = Math.max(0.4, rand(1.4, 2.4) / (g.speed * g.throttle));
+    g.spawnT = Math.max(0.5, rand(1.6, 2.8) / Math.sqrt(g.speed * g.throttle));
   }
-  const playerKph = (62 + g.speed * 38) * g.throttle;  // 初始 100 km/h
+  const playerKph = (62 + g.speed * 38) * g.throttle;
+  const refSpd    = 0.52 * g.speed * g.throttle;
   for (let i = g.cars.length - 1; i >= 0; i--) {
     const c = g.cars[i];
-    // 速差越大 → 相對接近越快；跑車接近較慢，貨車/慢車接近較快
-    const baseSpd = 0.52 * g.speed * g.throttle;
-    const speedFactor = clamp(1 + (playerKph - c.kph) / 60, 0.12, 3.0);
-    c.z += baseSpd * speedFactor * dt;
+    // 純速差模型：只有「玩家速度 − 車輛速度」才決定靠近或遠去
+    // 玩家較快 → 該車接近 (z↑)；車輛較快 → 遠去 (z↓)
+    const approachRate = refSpd * (playerKph - c.kph) / 15;
+    c.z += approachRate * dt;
     // 碰撞閾值依車寬縮放
     const hitThresh = CAR_HALF_W * c.wMult + CAR_HALF_W * 0.85;
     if (c.z >= HIT_Z_MIN && c.z <= HIT_Z_MAX && Math.abs(c.x - g.playerX) < hitThresh) {
       g.alive = false; showGameOver(); return;
     }
-    if (c.z > 1.15) g.cars.splice(i, 1);
+    if (c.z > 1.15 || c.z < -0.04) g.cars.splice(i, 1);
   }
 }
 
@@ -649,6 +673,42 @@ function updateSplashes(dt) {
     g.splashes[i].t += dt;
     if (g.splashes[i].t > g.splashes[i].life) g.splashes.splice(i, 1);
   }
+}
+
+// ─── 後座乘客尖叫 ─────────────────────────────────────────────────────────────
+function maybeScream(dt) {
+  if (!g.alive) return;
+  // 永遠更新字幕計時器
+  if (g.screamDisplay.timer > 0) g.screamDisplay.timer -= dt;
+  // 冷卻中
+  if (g.screamCooldown > 0) { g.screamCooldown -= dt; return; }
+
+  // 計算尖叫機率
+  const closeCar = g.cars.find(c =>
+    Math.abs(c.x - g.playerX) < CAR_HALF_W * c.wMult + 0.22 &&
+    c.z >= 0.52 && c.z < HIT_Z_MIN
+  );
+  let chance = dt * 0.004;                               // 背景低機率（隨機偶爾）
+  if (closeCar)          chance = dt * 2.2;              // 同車道有近車 → 高機率
+  if (g.lightning > 0.12) chance = Math.max(chance, dt * 0.55); // 閃電驚嚇
+
+  if (Math.random() > chance) return;
+
+  const line = pick(PASSENGER_LINES);
+  g.screamDisplay  = { text: `${line.speaker}：「${line.text}」`, timer: 2.8 };
+  g.screamCooldown = 5.0 + Math.random() * 6.0;
+
+  try {
+    if ('speechSynthesis' in window) {
+      speechSynthesis.cancel();
+      const utt = new SpeechSynthesisUtterance(line.text);
+      utt.lang   = 'zh-TW';
+      utt.rate   = line.rate;
+      utt.pitch  = line.pitch;
+      utt.volume = 0.95;
+      speechSynthesis.speak(utt);
+    }
+  } catch(_) {}
 }
 
 // ─── Draw: Sky (daytime overcast, scene-aware) ───────────────────────────────
@@ -1516,6 +1576,19 @@ function drawHUD() {
   ctx.fillText(`${kph} km/h`, W*0.915, H*0.105);
   const tv = document.getElementById('throttleVal');
   if (tv) tv.textContent = g.throttle.toFixed(1) + '×';
+
+  // 後座乘客尖叫字幕
+  if (g.screamDisplay && g.screamDisplay.timer > 0) {
+    const a = Math.min(1, g.screamDisplay.timer / 0.4);
+    ctx.globalAlpha  = a;
+    ctx.font         = `bold ${Math.round(W*0.032)}px sans-serif`;
+    ctx.fillStyle    = '#FFE57A';
+    ctx.textAlign    = 'center';
+    ctx.shadowColor  = 'rgba(0,0,0,0.85)';
+    ctx.shadowBlur   = 12;
+    ctx.fillText(g.screamDisplay.text, W * 0.5, H * 0.79);
+    ctx.shadowBlur   = 0;
+  }
   ctx.restore();
 }
 
@@ -1563,6 +1636,7 @@ function startGame() {
 }
 function showGameOver() {
   running = false;
+  try { if ('speechSynthesis' in window) speechSynthesis.cancel(); } catch(_) {}
   document.getElementById('leftControls').classList.add('hidden');
   document.getElementById('rightControls').classList.add('hidden');
   if (g.score > bestScore) bestScore = g.score;

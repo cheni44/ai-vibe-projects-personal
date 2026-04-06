@@ -68,113 +68,119 @@ _Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_A
         ret %tmp.12;
 _Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_15_48_19_4_stop:
     }
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc"; @line = 23; @symbol_functiondef = [getSampleRate,23,20,33]; @symbol_return<0> = [Number,23,39,45]; ]
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc"; @line = 21; @symbol_functiondef = [_normalizeSampleRate,21,20,40]; @symbol_param<0> = [val,21,41,44]; @symbol_return<0> = [Number,21,49,55]; ]
+    static
+    function _normalizeSampleRate(val) as Number {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_21_56_28_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 22 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_22_8_22_55_if_stmt:
+        %tmp.1 = lgetv %val;
+        symbol [ val %tmp.1 22 12 15 ];
+        %tmp.2 = null;
+        %tmp.3 = eq %tmp.1 %tmp.2;
+        bf %tmp.3 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_22_8_22_55_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_22_8_22_55_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_22_25_22_55_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 22 27 ]
+        symbol [ DEFAULT_SAMPLE_RATE %tmp.5 22 34 53 ];
+        %tmp.5 = getv ? :DEFAULT_SAMPLE_RATE;
+        ret %tmp.5;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_22_25_22_55_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_22_8_22_55_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_22_8_22_55_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 23 8 ]
+        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_21_56_28_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_21_56_28_4_stop" ]
+        %rate.1 = local;
+        symbol [ rate %rate.1 23 12 16 ];
+        %tmp.6 = lgetv %val;
+        symbol [ val %tmp.6 23 19 22 ];
+        %tmp.7 = as %tmp.6 Number;
+        symbol [ Number %tmp.7 23 26 32 ];
+        lputv %rate.1 %tmp.7;
+        symbol [ rate %rate.1 23 12 16 ];
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 24 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_24_8_24_62_if_stmt:
+        %tmp.8 = lgetv %rate.1;
+        symbol [ rate %tmp.8 24 12 16 ];
+        symbol [ MIN_SAMPLE_RATE %tmp.10 24 19 34 ];
+        %tmp.10 = getv ? :MIN_SAMPLE_RATE;
+        %tmp.11 = lt %tmp.8 %tmp.10;
+        bf %tmp.11 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_24_8_24_62_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_24_8_24_62_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_24_36_24_62_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 24 38 ]
+        symbol [ MIN_SAMPLE_RATE %tmp.13 24 45 60 ];
+        %tmp.13 = getv ? :MIN_SAMPLE_RATE;
+        lputv %rate.1 %tmp.13;
+        symbol [ rate %rate.1 24 38 42 ];
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_24_36_24_62_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_24_8_24_62_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_24_8_24_62_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 25 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_8_27_44_if_stmt:
+        %tmp.14 = lgetv %rate.1;
+        symbol [ rate %tmp.14 25 12 16 ];
+        %tmp.15 = 25;
+        %tmp.16 = lte %tmp.14 %tmp.15;
+        bf %tmp.16 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_8_27_44_if_false;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_8_27_44_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_30_25_43_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 25 32 ]
+        %tmp.17 = 25;
+        ret %tmp.17;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_30_25_43_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_8_27_44_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_8_27_44_if_false:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 26 13 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_26_13_27_44_if_stmt:
+        %tmp.18 = lgetv %rate.1;
+        symbol [ rate %tmp.18 26 17 21 ];
+        %tmp.19 = 50;
+        %tmp.20 = lte %tmp.18 %tmp.19;
+        bf %tmp.20 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_26_13_27_44_if_else_false;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_26_13_27_44_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_26_30_26_43_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 26 32 ]
+        %tmp.21 = 50;
+        ret %tmp.21;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_26_30_26_43_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_26_13_27_44_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_26_13_27_44_if_else_false:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_27_30_27_44_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 27 32 ]
+        %tmp.22 = 100;
+        ret %tmp.22;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_27_30_27_44_stop:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_26_13_27_44_if_end:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_8_27_44_if_end:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_21_56_28_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc"; @line = 31; @symbol_functiondef = [getSampleRate,31,20,33]; @symbol_return<0> = [Number,31,39,45]; ]
     static
     function getSampleRate() as Number {
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_23_46_33_4_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 24 8 ]
-        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_23_46_33_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_23_46_33_4_stop" ]
-        %val.1 = local;
-        symbol [ val %val.1 24 12 15 ];
-        symbol [ Application %tmp.1 24 18 29 ];
-        %tmp.1 = getm $.Toybox.Application;
-        symbol [ Properties %tmp.2 24 30 40 ];
-        %tmp.2 = getv %tmp.1 :Properties;
-        symbol [ getValue %tmp.3 24 41 49 ];
-        %tmp.3 = getv function %tmp.2 :getValue;
-        %tmp.4 = "SampleRate";
-        %tmp.5 = invoke %tmp.2 %tmp.3(%tmp.4);
-        lputv %val.1 %tmp.5;
-        symbol [ val %val.1 24 12 15 ];
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 25 8 ]
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_8_25_55_if_stmt:
-        %tmp.6 = lgetv %val.1;
-        symbol [ val %tmp.6 25 12 15 ];
-        %tmp.7 = null;
-        %tmp.8 = eq %tmp.6 %tmp.7;
-        bf %tmp.8 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_8_25_55_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_8_25_55_if_true:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_25_25_55_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 25 27 ]
-        symbol [ DEFAULT_SAMPLE_RATE %tmp.10 25 34 53 ];
-        %tmp.10 = getv ? :DEFAULT_SAMPLE_RATE;
-        ret %tmp.10;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_25_25_55_stop:
-        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_8_25_55_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_25_8_25_55_if_end:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 26 8 ]
-        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_23_46_33_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_23_46_33_4_stop" ]
-        %rate.2 = local;
-        symbol [ rate %rate.2 26 12 16 ];
-        %tmp.11 = lgetv %val.1;
-        symbol [ val %tmp.11 26 19 22 ];
-        %tmp.12 = as %tmp.11 Number;
-        symbol [ Number %tmp.12 26 26 32 ];
-        lputv %rate.2 %tmp.12;
-        symbol [ rate %rate.2 26 12 16 ];
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 28 8 ]
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_28_8_28_62_if_stmt:
-        %tmp.13 = lgetv %rate.2;
-        symbol [ rate %tmp.13 28 12 16 ];
-        symbol [ MIN_SAMPLE_RATE %tmp.15 28 19 34 ];
-        %tmp.15 = getv ? :MIN_SAMPLE_RATE;
-        %tmp.16 = lt %tmp.13 %tmp.15;
-        bf %tmp.16 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_28_8_28_62_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_28_8_28_62_if_true:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_28_36_28_62_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 28 38 ]
-        symbol [ MIN_SAMPLE_RATE %tmp.18 28 45 60 ];
-        %tmp.18 = getv ? :MIN_SAMPLE_RATE;
-        lputv %rate.2 %tmp.18;
-        symbol [ rate %rate.2 28 38 42 ];
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_28_36_28_62_stop:
-        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_28_8_28_62_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_28_8_28_62_if_end:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 30 8 ]
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_30_8_32_44_if_stmt:
-        %tmp.19 = lgetv %rate.2;
-        symbol [ rate %tmp.19 30 12 16 ];
-        %tmp.20 = 25;
-        %tmp.21 = lte %tmp.19 %tmp.20;
-        bf %tmp.21 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_30_8_32_44_if_false;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_30_8_32_44_if_true:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_30_30_30_43_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 30 32 ]
-        %tmp.22 = 25;
-        ret %tmp.22;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_30_30_30_43_stop:
-        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_30_8_32_44_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_30_8_32_44_if_false:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 31 13 ]
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_31_13_32_44_if_stmt:
-        %tmp.23 = lgetv %rate.2;
-        symbol [ rate %tmp.23 31 17 21 ];
-        %tmp.24 = 50;
-        %tmp.25 = lte %tmp.23 %tmp.24;
-        bf %tmp.25 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_31_13_32_44_if_else_false;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_31_13_32_44_if_true:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_31_30_31_43_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 31 32 ]
-        %tmp.26 = 50;
-        ret %tmp.26;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_31_30_31_43_stop:
-        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_31_13_32_44_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_31_13_32_44_if_else_false:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_32_30_32_44_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 32 32 ]
-        %tmp.27 = 100;
-        ret %tmp.27;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_32_30_32_44_stop:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_31_13_32_44_if_end:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_30_8_32_44_if_end:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_23_46_33_4_stop:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_31_46_33_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 32 8 ]
+        %tmp.1 = self;
+        symbol [ _normalizeSampleRate %tmp.2 32 15 35 ];
+        %tmp.2 = getv function %tmp.1 :_normalizeSampleRate;
+        symbol [ Application %tmp.3 32 36 47 ];
+        %tmp.3 = getm $.Toybox.Application;
+        symbol [ Properties %tmp.4 32 48 58 ];
+        %tmp.4 = getv %tmp.3 :Properties;
+        symbol [ getValue %tmp.5 32 59 67 ];
+        %tmp.5 = getv function %tmp.4 :getValue;
+        %tmp.6 = "SampleRate";
+        %tmp.7 = invoke %tmp.4 %tmp.5(%tmp.6);
+        %tmp.8 = invoke %tmp.1 %tmp.2(%tmp.7);
+        ret %tmp.8;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_31_46_33_4_stop:
     }
-    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc"; @line = 36; @symbol_functiondef = [getPoolLength,36,20,33]; @symbol_return<0> = [Number,36,39,45]; ]
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc"; @line = 36; @symbol_functiondef = [getAccelSampleRate,36,20,38]; @symbol_return<0> = [Number,36,44,50]; ]
     static
-    function getPoolLength() as Number {
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_36_46_41_4_start:
+    function getAccelSampleRate() as Number {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_36_51_42_4_start:
 [ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 37 8 ]
-        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_36_46_41_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_36_46_41_4_stop" ]
+        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_36_51_42_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_36_51_42_4_stop" ]
         %val.1 = local;
         symbol [ val %val.1 37 12 15 ];
         symbol [ Application %tmp.1 37 18 29 ];
@@ -183,54 +189,146 @@ _Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_A
         %tmp.2 = getv %tmp.1 :Properties;
         symbol [ getValue %tmp.3 37 41 49 ];
         %tmp.3 = getv function %tmp.2 :getValue;
-        %tmp.4 = "PoolLength";
+        %tmp.4 = "AccelSampleRate";
         %tmp.5 = invoke %tmp.2 %tmp.3(%tmp.4);
         lputv %val.1 %tmp.5;
         symbol [ val %val.1 37 12 15 ];
 [ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 38 8 ]
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_8_38_55_if_stmt:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_8_40_8_if_stmt:
         %tmp.6 = lgetv %val.1;
         symbol [ val %tmp.6 38 12 15 ];
         %tmp.7 = null;
         %tmp.8 = eq %tmp.6 %tmp.7;
-        bf %tmp.8 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_8_38_55_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_8_38_55_if_true:
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_25_38_55_start:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 38 27 ]
-        symbol [ DEFAULT_POOL_LENGTH %tmp.10 38 34 53 ];
+        bf %tmp.8 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_8_40_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_8_40_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_25_40_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 39 12 ]
+        %tmp.9 = self;
+        symbol [ getSampleRate %tmp.10 39 19 32 ];
+        %tmp.10 = getv function %tmp.9 :getSampleRate;
+        %tmp.11 = invoke %tmp.9 %tmp.10();
+        ret %tmp.11;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_25_40_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_8_40_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_8_40_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 41 8 ]
+        %tmp.12 = self;
+        symbol [ _normalizeSampleRate %tmp.13 41 15 35 ];
+        %tmp.13 = getv function %tmp.12 :_normalizeSampleRate;
+        %tmp.14 = lgetv %val.1;
+        symbol [ val %tmp.14 41 36 39 ];
+        %tmp.15 = invoke %tmp.12 %tmp.13(%tmp.14);
+        ret %tmp.15;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_36_51_42_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc"; @line = 45; @symbol_functiondef = [getGyroSampleRate,45,20,37]; @symbol_return<0> = [Number,45,43,49]; ]
+    static
+    function getGyroSampleRate() as Number {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_45_50_51_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 46 8 ]
+        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_45_50_51_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_45_50_51_4_stop" ]
+        %val.1 = local;
+        symbol [ val %val.1 46 12 15 ];
+        symbol [ Application %tmp.1 46 18 29 ];
+        %tmp.1 = getm $.Toybox.Application;
+        symbol [ Properties %tmp.2 46 30 40 ];
+        %tmp.2 = getv %tmp.1 :Properties;
+        symbol [ getValue %tmp.3 46 41 49 ];
+        %tmp.3 = getv function %tmp.2 :getValue;
+        %tmp.4 = "GyroSampleRate";
+        %tmp.5 = invoke %tmp.2 %tmp.3(%tmp.4);
+        lputv %val.1 %tmp.5;
+        symbol [ val %val.1 46 12 15 ];
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 47 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_47_8_49_8_if_stmt:
+        %tmp.6 = lgetv %val.1;
+        symbol [ val %tmp.6 47 12 15 ];
+        %tmp.7 = null;
+        %tmp.8 = eq %tmp.6 %tmp.7;
+        bf %tmp.8 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_47_8_49_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_47_8_49_8_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_47_25_49_8_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 48 12 ]
+        %tmp.9 = self;
+        symbol [ getSampleRate %tmp.10 48 19 32 ];
+        %tmp.10 = getv function %tmp.9 :getSampleRate;
+        %tmp.11 = invoke %tmp.9 %tmp.10();
+        ret %tmp.11;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_47_25_49_8_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_47_8_49_8_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_47_8_49_8_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 50 8 ]
+        %tmp.12 = self;
+        symbol [ _normalizeSampleRate %tmp.13 50 15 35 ];
+        %tmp.13 = getv function %tmp.12 :_normalizeSampleRate;
+        %tmp.14 = lgetv %val.1;
+        symbol [ val %tmp.14 50 36 39 ];
+        %tmp.15 = invoke %tmp.12 %tmp.13(%tmp.14);
+        ret %tmp.15;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_45_50_51_4_stop:
+    }
+    [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc"; @line = 54; @symbol_functiondef = [getPoolLength,54,20,33]; @symbol_return<0> = [Number,54,39,45]; ]
+    static
+    function getPoolLength() as Number {
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_54_46_59_4_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 55 8 ]
+        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_54_46_59_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_54_46_59_4_stop" ]
+        %val.1 = local;
+        symbol [ val %val.1 55 12 15 ];
+        symbol [ Application %tmp.1 55 18 29 ];
+        %tmp.1 = getm $.Toybox.Application;
+        symbol [ Properties %tmp.2 55 30 40 ];
+        %tmp.2 = getv %tmp.1 :Properties;
+        symbol [ getValue %tmp.3 55 41 49 ];
+        %tmp.3 = getv function %tmp.2 :getValue;
+        %tmp.4 = "PoolLength";
+        %tmp.5 = invoke %tmp.2 %tmp.3(%tmp.4);
+        lputv %val.1 %tmp.5;
+        symbol [ val %val.1 55 12 15 ];
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 56 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_56_8_56_55_if_stmt:
+        %tmp.6 = lgetv %val.1;
+        symbol [ val %tmp.6 56 12 15 ];
+        %tmp.7 = null;
+        %tmp.8 = eq %tmp.6 %tmp.7;
+        bf %tmp.8 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_56_8_56_55_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_56_8_56_55_if_true:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_56_25_56_55_start:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 56 27 ]
+        symbol [ DEFAULT_POOL_LENGTH %tmp.10 56 34 53 ];
         %tmp.10 = getv ? :DEFAULT_POOL_LENGTH;
         ret %tmp.10;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_25_38_55_stop:
-        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_8_38_55_if_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_38_8_38_55_if_end:
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 39 8 ]
-        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_36_46_41_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_36_46_41_4_stop" ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_56_25_56_55_stop:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_56_8_56_55_if_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_56_8_56_55_if_end:
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 57 8 ]
+        [ "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_54_46_59_4_start" "_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_54_46_59_4_stop" ]
         %len.2 = local;
-        symbol [ len %len.2 39 12 15 ];
+        symbol [ len %len.2 57 12 15 ];
         %tmp.11 = lgetv %val.1;
-        symbol [ val %tmp.11 39 18 21 ];
+        symbol [ val %tmp.11 57 18 21 ];
         %tmp.12 = as %tmp.11 Number;
-        symbol [ Number %tmp.12 39 25 31 ];
+        symbol [ Number %tmp.12 57 25 31 ];
         lputv %len.2 %tmp.12;
-        symbol [ len %len.2 39 12 15 ];
-[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 40 8 ]
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_40_15_40_34_begin:
+        symbol [ len %len.2 57 12 15 ];
+[ "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc" 58 8 ]
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_58_15_58_34_begin:
         %tmp.13 = lgetv %len.2;
-        symbol [ len %tmp.13 40 16 19 ];
+        symbol [ len %tmp.13 58 16 19 ];
         %tmp.14 = 50;
         %tmp.15 = eq %tmp.13 %tmp.14;
-        bf %tmp.15 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_40_15_40_34_else_false;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_40_15_40_34_true:
+        bf %tmp.15 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_58_15_58_34_else_false;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_58_15_58_34_true:
         %tmp.16 = 50;
         push %tmp.16;
-        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_40_15_40_34_end;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_40_15_40_34_else_false:
+        goto @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_58_15_58_34_end;
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_58_15_58_34_else_false:
         %tmp.17 = 25;
         push %tmp.17;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_40_15_40_34_end:
-        %tmp.18 = phi [%tmp.15 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_40_15_40_34_begin] [%tmp.16 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_40_15_40_34_true] [%tmp.17 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_40_15_40_34_else_false] [%tmp.18 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_40_15_40_34_end];
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_58_15_58_34_end:
+        %tmp.18 = phi [%tmp.15 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_58_15_58_34_begin] [%tmp.16 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_58_15_58_34_true] [%tmp.17 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_58_15_58_34_else_false] [%tmp.18 @_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_58_15_58_34_end];
         ret %tmp.18;
-_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_36_46_41_4_stop:
+_Users_mac_Software_ai_vibe_projects_personal_spatio_insight_garmin_app_source_AppSettings_mc_54_46_59_4_stop:
     }
 }
 [ @file = "/Users/mac/Software/ai-vibe-projects-personal/spatio-insight/garmin-app/source/AppSettings.mc"; @line = 1; ]
